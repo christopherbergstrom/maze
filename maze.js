@@ -2,11 +2,13 @@ var array=[];
 var height;
 $(document).ready(function()
 {
-  createWalls();
+  createDivs();
   createArray();
-  test();
+  startEnd();
+  createWalls();
+  createPlayer();
 });
-function createWalls()
+function createDivs()
 {
   // rows
   // $("body").append("<div id='container'></div>");
@@ -50,7 +52,7 @@ function createArray()
   }
   // console.log(array);
 }
-function test()
+function startEnd()
 {
   var start;
   var end;
@@ -100,10 +102,53 @@ function test()
   // var one = Math.floor(Math.random()*50);
   // var two = Math.floor(Math.random()*height);
   // console.log(one+""+two);
-  console.log("side: "+side);
-  console.log("start: "+start);
-  console.log("end: "+end);
+
+  // console.log("side: "+side);
+  // console.log("start: "+start);
+  // console.log("end: "+end);
+
   // $("#"+one+two).css("background-color", "white");
   $("#"+start).css("background-color", "green");
   $("#"+end).css("background-color", "red");
+}
+function createWalls()
+{
+
+}
+function createPlayer()
+{
+  // start code to make player square
+
+  // end code to make player square
+  $(document).keyup(function(e)
+  {
+    // left
+    if (e.which === 37)
+    {
+      console.log("left");
+      // hor-=2;
+      // player.css("left", hor+"px");
+    }
+    // up
+    if (e.which === 38)
+    {
+      console.log("up");
+      // vert-=2;
+      // player.css("top", vert+"px");
+    }
+    // right
+    if (e.which === 39)
+    {
+      console.log("right");
+      // hor+=2;
+      // player.css("left", hor+"px");
+    }
+    // down
+    if (e.which === 40)
+    {
+      console.log("down");
+      // vert+=2;
+      // player.css("top", vert+"px");
+    }
+  });
 }
