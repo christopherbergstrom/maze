@@ -68,10 +68,10 @@ function startEnd()
     start = one+""+two;
     array[one.split("x")[1]][two.split("y")[1]] = "x";
 
-    var one = "x"+Math.floor(Math.random()*50);
-    var two = "y"+(height-1);
-    end = one+""+two;
-    array[one.split("x")[1]][two.split("y")[1]] = "x";
+    // var one = "x"+Math.floor(Math.random()*50);
+    // var two = "y"+(height-1);
+    // end = one+""+two;
+    // array[one.split("x")[1]][two.split("y")[1]] = "x";
   }
   else if (side === 1)
   {
@@ -80,10 +80,10 @@ function startEnd()
     start = one+""+two;
     array[one.split("x")[1]][two.split("y")[1]] = "x";
 
-    var one = "x"+0
-    var two = "y"+Math.floor(Math.random()*height);
-    end = one+""+two;
-    array[one.split("x")[1]][two.split("y")[1]] = "x";
+    // var one = "x"+0
+    // var two = "y"+Math.floor(Math.random()*height);
+    // end = one+""+two;
+    // array[one.split("x")[1]][two.split("y")[1]] = "x";
   }
   else if (side === 2)
   {
@@ -92,10 +92,10 @@ function startEnd()
     start = one+""+two;
     array[one.split("x")[1]][two.split("y")[1]] = "x";
 
-    var one = "x"+Math.floor(Math.random()*50);
-    var two = "y"+0;
-    end = one+""+two;
-    array[one.split("x")[1]][two.split("y")[1]] = "x";
+    // var one = "x"+Math.floor(Math.random()*50);
+    // var two = "y"+0;
+    // end = one+""+two;
+    // array[one.split("x")[1]][two.split("y")[1]] = "x";
   }
   else if (side === 3)
   {
@@ -104,10 +104,10 @@ function startEnd()
     start = one+""+two;
     array[one.split("x")[1]][two.split("y")[1]] = "x";
 
-    var one = "x"+49;
-    var two = "y"+Math.floor(Math.random()*height);
-    end = one+""+two;
-    array[one.split("x")[1]][two.split("y")[1]] = "x";
+    // var one = "x"+49;
+    // var two = "y"+Math.floor(Math.random()*height);
+    // end = one+""+two;
+    // array[one.split("x")[1]][two.split("y")[1]] = "x";
   }
 
   // var one = Math.floor(Math.random()*50);
@@ -119,24 +119,32 @@ function startEnd()
   // console.log("end: "+end);
 
   // $("#"+one+two).css("background-color", "white");
+
   $("#"+start).css("background-color", "green");
-  $("#"+end).css("background-color", "red");
+  // $("#"+end).css("background-color", "red");
+
   // histortArray.push(start);
   histortArray=[start];
   console.log(start);
-  console.log(histortArray);
+  // console.log(histortArray);
   createWalls();
 }
 function createWalls()
 {
   while (histortArray.length)
   {
-    // console.log(histortArray);
-    var split1 = histortArray[histortArray.length-1].split("x");
-    var split2 = split1[1].split("y");
-    // console.log(split2);
-    checkDirections(parseInt(split2[0]), parseInt(split2[1]));
+    for (var i=0; i<60; i++)
+    {
+      // console.log(histortArray);
+      var split1 = histortArray[histortArray.length-1].split("x");
+      var split2 = split1[1].split("y");
+      // console.log(split2);
+      checkDirections(parseInt(split2[0]), parseInt(split2[1]));
+    }
+    break;
   }
+  console.log(array);
+  console.log(start);
 }
 function checkDirections(x, y)
 {
@@ -155,7 +163,7 @@ function checkDirections(x, y)
       if (y-2 >= 0)
       {
         console.log("up");
-        if (array[x][y-2] === " ")
+        if (array[x][y-2] === " " && array[x][y-1] === " ")
         {
           possible.push("U");
         }
@@ -167,7 +175,7 @@ function checkDirections(x, y)
       if (y+2 <= height-2)
       {
         console.log("down");
-        if (array[x][y+2] === " ")
+        if (array[x][y+2] === " " && array[x][y+1] === " ")
         {
           possible.push("D");
         }
@@ -179,7 +187,7 @@ function checkDirections(x, y)
       if (x-2 >= 0)
       {
         console.log("left");
-        if (array[x-2][y] === " ")
+        if (array[x-2][y] === " " && array[x-1][y] === " ")
         {
           possible.push("L");
         }
@@ -191,7 +199,7 @@ function checkDirections(x, y)
       if (x+2 <= 49)
       {
         console.log("right");
-        if (array[x+2][y] === " ")
+        if (array[x+2][y] === " " && array[x+1][y] === " ")
         {
           possible.push("R");
         }
@@ -202,7 +210,7 @@ function checkDirections(x, y)
   // console.log(possible.length);
   if (possible.length)
   {
-    move(possible);
+    move(possible, x, y);
     // return move(possible);
   }
   else
@@ -211,7 +219,7 @@ function checkDirections(x, y)
     // return;
   }
 }
-function move(possible)
+function move(possible, x, y)
 {
   // var moves = possible.split("");
   // for (var i=0; i<moves.length; i++)
@@ -221,35 +229,35 @@ function move(possible)
   var whichMove = Math.floor(Math.random()*possible.length);
   if (possible[whichMove] === "U")
   {
-    array[x][y-2] = "x";
+    array[x][y-1] = "x";
     // console.log("up: true");
-    $("#x"+x+"y"+(y-2)).css("background-color", "white");
-    // checkDirections(x, y-2);
-    histortArray.push("#x"+x+"y"+(y-2));
+    $("#x"+x+"y"+(y-1)).css("background-color", "white");
+    // checkDirections(x, y-1);
+    histortArray.push("#x"+x+"y"+(y-1));
   }
   else if (possible[whichMove] === "D")
   {
-    array[x][y+2] = "x";
+    array[x][y+1] = "x";
     // console.log("down: true");
-    $("#x"+x+"y"+(y+2)).css("background-color", "white");
-    // checkDirections(x, y+2);
-    histortArray.push("#x"+x+"y"+(y+2));
+    $("#x"+x+"y"+(y+1)).css("background-color", "white");
+    // checkDirections(x, y+1);
+    histortArray.push("#x"+x+"y"+(y+1));
   }
   else if (possible[whichMove] === "L")
   {
-    array[x-2][y] = "x";
+    array[x-1][y] = "x";
     console.log("left: true");
-    $("#x"+(x-2)+"y"+y).css("background-color", "white");
-    // checkDirections(x-2, y);
-    histortArray.push("#x"+(x-2)+"y"+y);
+    $("#x"+(x-1)+"y"+y).css("background-color", "white");
+    // checkDirections(x-1, y);
+    histortArray.push("#x"+(x-1)+"y"+y);
   }
   else if (possible[whichMove] === "R")
   {
-    array[x+2][y] = "x";
+    array[x+1][y] = "x";
     // console.log("right: true");
-    $("#x"+(x+2)+"y"+y).css("background-color", "white");
-    // checkDirections(x+2, y);
-    histortArray.push("#x"+(x+2)+"y"+y);
+    $("#x"+(x+1)+"y"+y).css("background-color", "white");
+    // checkDirections(x+1, y);
+    histortArray.push("#x"+(x+1)+"y"+y);
   }
   possible=[];
   // return;
