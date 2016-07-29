@@ -393,124 +393,72 @@ function createPlayer()
     // up
     if (e.which === 38)
     {
-      console.log("up");
       if (position[1]-1 >= 0)
       {
-        console.log("up true");
         if (position[0] === start[0] && position[1]-1 === start[1])
         {
           // cant move here
-          console.log("cant move here");
-          console.log(array[position[0]][position[1]-1]);
-          console.log(array[start[0]][start[1]]);
-          // console.log(position[0]+" "+(position[1]-1));
-          // console.log(start[0]+" "+start[1]);
-          // console.log(array[position[0]][position[1]-1]);
-          // console.log(array[start[0]][start[1]]);
         }
         else if (array[position[0]][position[1]-1] === "x")
         {
-          console.log("moving");
+          // can move here
           $("#x"+position[0]+"y"+position[1]).css("background-color","white");
           position[1]-=1;
           $("#x"+position[0]+"y"+position[1]).css("background-color","#2ea1fb");
-        }
-        else
-        {
-          console.log("false");
         }
       }
     }
     // down
     if (e.which === 40)
     {
-      console.log("down");
       if (position[1]+1 <= height-1)
       {
-        console.log("down true");
         if (position[0] === start[0] &&position[1]+1 === start[1])
         {
           // cant move here
-          console.log("cant move here");
-          console.log(array[position[0]][position[1]+1]);
-          console.log(array[start[0]][start[1]]);
-          // console.log(position[0]+" "+(position[1]+1));
-          // console.log(start[0]+" "+start[1]);
-          // console.log(array[position[0]][position[1]+1]);
-          // console.log(array[start[0]][start[1]]);
         }
         else if (array[position[0]][position[1]+1] === "x")
         {
-          console.log("moving");
+          // can move here
           $("#x"+position[0]+"y"+position[1]).css("background-color","white");
           position[1]+=1;
           $("#x"+position[0]+"y"+position[1]).css("background-color","#2ea1fb");
-        }
-        else
-        {
-          console.log("false");
         }
       }
     }
     // left
     if (e.which === 37)
     {
-      console.log("left");
       if (position[0]-1 >= 0)
       {
-        console.log("left true");
         if (position[0]-1 === start[0] && position[1] === start[1])
         {
           // cant move here
-          console.log("cant move here");
-          console.log(array[position[0]-1][position[1]]);
-          console.log(array[start[0]][start[1]]);
-          // console.log(position[0]-1+" "+position[1]);
-          // console.log(start[0]+" "+start[1]);
-          // console.log(array[position[0]-1][position[1]]);
-          // console.log(array[start[0]][start[1]]);
         }
         else if (array[position[0]-1][position[1]] === "x")
         {
-          console.log("moving");
+          // can move here
           $("#x"+position[0]+"y"+position[1]).css("background-color","white");
           position[0]-=1;
           $("#x"+position[0]+"y"+position[1]).css("background-color","#2ea1fb");
-        }
-        else
-        {
-          console.log("false");
         }
       }
     }
     // right
     if (e.which === 39)
     {
-      console.log("right");
       if (position[0]+1 <= (maxWidth-1))
       {
-        console.log("right true");
         if (position[0]+1 === start[0] && position[1] === start[1])
         {
           // cant move here
-          console.log("cant move here");
-          console.log(array[position[0]+1][position[1]]);
-          console.log(array[start[0]][start[1]]);
-          // console.log(position[0]+1+" "+position[1]);
-          // console.log(start[0]+" "+start[1]);
-          // console.log(array[position[0]+1][position[1]]);
-          // console.log(array[start[0]][start[1]]);
         }
         else if (array[position[0]+1][position[1]] === "x")
         {
-          console.log("moving");
+          // can move here
           $("#x"+position[0]+"y"+position[1]).css("background-color","white");
           position[0]+=1;
           $("#x"+position[0]+"y"+position[1]).css("background-color","#2ea1fb");
-        }
-        else
-        {
-          console.log("false");
         }
       }
     }
