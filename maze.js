@@ -1,9 +1,13 @@
 var array=[];
-var histortArray;
+var historyArray;
 var height;
 var startx;
 var starty;
 var end;
+var count = 0;
+var lastLongest;
+var longest;
+var longestCount = 0;
 $(document).ready(function()
 {
   createDivs();
@@ -124,36 +128,57 @@ function startEnd()
   // $("#"+end).css("background-color", "red");
   console.log(height);
 
-  // histortArray.push(start);
-  histortArray=[start];
+  // historyArray.push(start);
+  historyArray=[start];
+  // last = start;
   console.log(start);
-  // console.log(histortArray);
+  // console.log(historyArray);
   createWalls();
 }
 function createWalls()
 {
-  while (histortArray.length)
+  var first=true;
+  while (historyArray.length)
   {
-    for (var i=0; i<60; i++)
+    // for (var i=0; i<60; i++)
+    // {
+    // }
+    // break;
+    // console.log(historyArray);
+    var split1 = historyArray[historyArray.length-1].split("x");
+    var split2 = split1[1].split("y");
+    // console.log(split2);
+    checkDirections(parseInt(split2[0]), parseInt(split2[1]));
+    if (first)
     {
-      // console.log(histortArray);
-      var split1 = histortArray[histortArray.length-1].split("x");
-      var split2 = split1[1].split("y");
-      // console.log(split2);
-      checkDirections(parseInt(split2[0]), parseInt(split2[1]));
+      first=false;
+      longest = historyArray[historyArray.length-1];
+      $(longest).css("background-color","red");
     }
-    break;
+    if (historyArray.length >= longestCount)
+    {
+      longestCount = historyArray.length;
+      $(longest).css("background-color","white");
+      longest = historyArray[historyArray.length-1];
+      $(longest).css("background-color","red");
+
+      // last = longest;
+      // $(historyArray[historyArray.length-1]).css("background-color","red");
+    }
+    // console.log("history: "+historyArray[historyArray.length-1]);
   }
-  console.log(array);
-  console.log(start);
+  console.log(historyArray);
+  console.log(longestCount);
+  // console.log(historyArray.length);
+  // console.log(array);
+  // console.log(start);
+  // console.log(count);
+  // console.log(last);
 }
 function checkDirections(x, y)
 {
-  console.log("x: "+x);
-  // console.log(x);
-  console.log("y: "+y);
-  // console.log(y);
-
+  // console.log("x: "+x);
+  // console.log("y: "+y);
 
   var possible = [];
   for (var i=0; i<4; i++)
@@ -163,7 +188,7 @@ function checkDirections(x, y)
     {
       if (y-2 >= 0)
       {
-        console.log("up");
+        // console.log("up");
         if (x === 0)
         {
           if (array[x][y-2] === " " && array[x][y-1] === " " && array[x+1][y-1] === " ")
@@ -189,7 +214,7 @@ function checkDirections(x, y)
     {
       if (y+2 <= height-1)
       {
-        console.log("down");
+        // console.log("down");
         if (x === 0)
         {
           if (array[x][y+2] === " " && array[x][y+1] === " " && array[x+1][y+1] === " ")
@@ -215,7 +240,7 @@ function checkDirections(x, y)
     {
       if (x-2 >= 0)
       {
-        console.log("left");
+        // console.log("left");
         if (y === 0)
         {
           if (array[x-2][y] === " " && array[x-1][y] === " " && array[x-1][y+1] === " ")
@@ -241,7 +266,7 @@ function checkDirections(x, y)
     {
       if (x+2 <= 49)
       {
-        console.log("right");
+        // console.log("right");
         if (y === 0)
         {
           if (array[x+2][y] === " " && array[x+1][y] === " " && array[x+1][y+1] === " ")
@@ -267,54 +292,67 @@ function checkDirections(x, y)
   // console.log(possible.length);
   if (possible.length)
   {
+    // longestCount++;
     move(possible, x, y);
     // return move(possible);
   }
   else
   {
-    histortArray.pop();
+    historyArray.pop();
     // return;
   }
 }
 function move(possible, x, y)
 {
-  // var moves = possible.split("");
-  // for (var i=0; i<moves.length; i++)
+  count++;
+  // if (last)
   // {
-  //
+  //   $(last).css("background-color","white");
   // }
   var whichMove = Math.floor(Math.random()*possible.length);
   if (possible[whichMove] === "U")
   {
+    console.log("x: "+x);
+    console.log("y: "+y);
     array[x][y-1] = "x";
     // console.log("up: true");
     $("#x"+x+"y"+(y-1)).css("background-color", "white");
     // checkDirections(x, y-1);
-    histortArray.push("#x"+x+"y"+(y-1));
+    // last="#x"+x+"y"+(y-1);
+    historyArray.push("#x"+x+"y"+(y-1));
   }
   else if (possible[whichMove] === "D")
   {
+    console.log("x: "+x);
+    console.log("y: "+y);
     array[x][y+1] = "x";
     // console.log("down: true");
     $("#x"+x+"y"+(y+1)).css("background-color", "white");
     // checkDirections(x, y+1);
-    histortArray.push("#x"+x+"y"+(y+1));
+    // last="#x"+x+"y"+(y+1);
+    historyArray.push("#x"+x+"y"+(y+1));
   }
   else if (possible[whichMove] === "L")
   {
+    console.log("x: "+x);
+    console.log("y: "+y);
     array[x-1][y] = "x";
-    console.log("left: true");
+    // console.log("left: true");
     $("#x"+(x-1)+"y"+y).css("background-color", "white");
     // checkDirections(x-1, y);
-    histortArray.push("#x"+(x-1)+"y"+y);
+    // last="#x"+(x-1)+"y"+y;
+    historyArray.push("#x"+(x-1)+"y"+y);
   }
   else if (possible[whichMove] === "R")
   {
+    console.log("x: "+x);
+    console.log("y: "+y);
     array[x+1][y] = "x";
     // console.log("right: true");
     $("#x"+(x+1)+"y"+y).css("background-color", "white");
     // checkDirections(x+1, y);
-    histortArray.push("#x"+(x+1)+"y"+y);
+    // last="#x"+(x+1)+"y"+y;
+    historyArray.push("#x"+(x+1)+"y"+y);
   }
   possible=[];
   // return;
