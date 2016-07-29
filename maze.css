@@ -26,18 +26,44 @@ body
   height: 100%;
 }*/
 /*cols*/
-.col
+.colL
+{
+  position: relative;
+  display: inline-block;
+  width: 4vw;
+  height: 100%;
+}
+.colM
 {
   position: relative;
   display: inline-block;
   width: 2vw;
-  height: 100;
+  height: 100%;
 }
-.wall
+.colS
+{
+  position: relative;
+  display: inline-block;
+  width: 1vw;
+  height: 100%;
+}
+.wallL
+{
+  background-color: black;
+  width: 100%;
+  height: 4vw;
+}
+.wallM
 {
   background-color: black;
   width: 100%;
   height: 2vw;
+}
+.wallS
+{
+  background-color: black;
+  width: 100%;
+  height: 1vw;
 }
 #menu
 {

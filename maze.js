@@ -9,6 +9,7 @@ var longest;
 var longestCount = 0;
 var time = 0;
 var difficulty;
+var maxWidth;
 $(document).ready(function()
 {
   creatMenu();
@@ -34,7 +35,10 @@ function creatMenu()
     $("#medium").css("border","3px solid white");
     $("#hard").css("color","white");
     $("#hard").css("border","3px solid white");
-    difficulty="easy";
+    difficulty=.04;
+    maxWidth=25;
+    // $(".col").width("4vw");
+    // $(".wall").height("4vw");
   })
   $("#medium").click(function()
   {
@@ -44,7 +48,10 @@ function creatMenu()
     $("#easy").css("border","3px solid white");
     $("#hard").css("color","white");
     $("#hard").css("border","3px solid white");
-    difficulty="medium";
+    difficulty=.02;
+    maxWidth=50;
+    // $(".col").width("2vw");
+    // $(".wall").height("2vw");
   })
   $("#hard").click(function()
   {
@@ -54,7 +61,10 @@ function creatMenu()
     $("#easy").css("border","3px solid white");
     $("#medium").css("color","white");
     $("#medium").css("border","3px solid white");
-    difficulty="hard";
+    difficulty=.01;
+    maxWidth=100;
+    // $(".col").width("1vw");
+    // $(".wall").height("1vw");
   })
   $("#play").click(function()
   {
@@ -68,7 +78,7 @@ function creatMenu()
 function createDivs()
 {
   // create divs for maze map
-  
+
   // rows
   // $("body").append("<div id='container'></div>");
   // var width = window.innerWidth*.02;
@@ -85,14 +95,36 @@ function createDivs()
   // }
   // cols
   $("body").append("<div id='container'></div>");
-  var width = window.innerWidth*.02;
+  var width = window.innerWidth*difficulty;
   height = Math.floor(window.innerHeight / width);
-  for (var i = 0; i < 50; i++)
+  for (var i = 0; i < maxWidth; i++)
   {
-    var item = $("<div class='col'></div>");
+    if (difficulty === .04)
+    {
+      var item = $("<div class='colL'></div>");
+    }
+    else if (difficulty === .02)
+    {
+      var item = $("<div class='colM'></div>");
+    }
+    else if (difficulty === .01)
+    {
+      var item = $("<div class='colS'></div>");
+    }
     for (var j = 0; j < height; j++)
     {
-      item.append("<div class='wall' id='x"+i+"y"+j+"'></div>")
+      if (difficulty === .04)
+      {
+        item.append("<div class='wallL' id='x"+i+"y"+j+"'></div>")
+      }
+      else if (difficulty === .02)
+      {
+        item.append("<div class='wallM' id='x"+i+"y"+j+"'></div>")
+      }
+      else if (difficulty === .01)
+      {
+        item.append("<div class='wallS' id='x"+i+"y"+j+"'></div>")
+      }
     }
     $("#container").append(item);
     $("body").append($("#container"));
@@ -102,7 +134,7 @@ function createDivs()
 function createArray()
 {
   // create maze map array
-  for (var i = 0; i < 50; i++)
+  for (var i = 0; i < maxWidth; i++)
   {
     var tempArray = [];
     for (var j = 0; j < height; j++)
@@ -118,21 +150,21 @@ function startEnd()
   var side = Math.floor(Math.random()*4);
   if (side === 0)
   {
-    var one = "x"+Math.floor(Math.random()*50);
+    var one = "x"+Math.floor(Math.random()*maxWidth);
     var two = "y"+0;
     start = one+""+two;
     array[one.split("x")[1]][two.split("y")[1]] = "x";
   }
   else if (side === 1)
   {
-    var one = "x"+49;
+    var one = "x"+(maxWidth-1);
     var two = "y"+Math.floor(Math.random()*height);
     start = one+""+two;
     array[one.split("x")[1]][two.split("y")[1]] = "x";
   }
   else if (side === 2)
   {
-    var one = "x"+Math.floor(Math.random()*50);
+    var one = "x"+Math.floor(Math.random()*(maxWidth-1));
     var two = "y"+(height-1);
     start = one+""+two;
     array[one.split("x")[1]][two.split("y")[1]] = "x";
@@ -209,7 +241,7 @@ function checkDirections(x, y)
             possible.push("U");
           }
         }
-        else if (x === 49)
+        else if (x === (maxWidth-1))
         {
           if (array[x][y-2] === " " && array[x][y-1] === " " && array[x-1][y-1] === " ")
           {
@@ -234,7 +266,7 @@ function checkDirections(x, y)
             possible.push("D");
           }
         }
-        else if (x === 49)
+        else if (x === (maxWidth-1))
         {
           if (array[x][y+2] === " " && array[x][y+1] === " "&& array[x-1][y+1] === " ")
           {
@@ -275,7 +307,7 @@ function checkDirections(x, y)
     // check right
     if (i === 3)
     {
-      if (x+2 <= 49)
+      if (x+2 <= (maxWidth-1))
       {
         if (y === 0)
         {
