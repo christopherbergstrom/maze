@@ -1,3 +1,7 @@
+body
+{
+  background-color: black;
+}
 #container
 {
   position: absolute;
@@ -34,4 +38,65 @@
   background-color: black;
   width: 100%;
   height: 2vw;
+}
+#menu
+{
+  position: absolute;
+  width: 50vw;
+  height: 50vh;
+  top: 25%;
+  left: 25%;
+  text-align: center;
+  background-color: black;
+  border: 3px solid white;
+}
+button
+{
+  font-size: 3em;
+  background-color: black;
+  border: 3px solid white;
+  color: white;
+}
+#difficulty
+{
+  padding-top: 10%;
+  padding-bottom: 10%;
+  position: relative;
+}
+#difficulty button
+{
+  display: inline-block;
+  margin: 1%;
+  /*background-color: green;*/
+}
+#easy
+{
+  /*color: #00ff00;*/
+}
+#easy:hover
+{
+  color: #006600 !important;
+  border: 3px solid #006600 !important;
+}
+#medium:hover
+{
+  color: #666600 !important;
+  border: 3px solid #666600 !important;
+}
+#hard:hover
+{
+  color: #660000 !important;
+  border: 3px solid #660000 !important;
+}
+#play
+{
+  position: relative;
+  color: #00cccc;
+  border: 3px solid #00cccc;
+}
+#play:hover
+{
+  position: relative;
+  color: #66ffff;
+  border: 3px solid #66ffff;
 }

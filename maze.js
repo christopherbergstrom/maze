@@ -4,18 +4,68 @@ var height;
 var startx;
 var starty;
 var end;
-var count = 0;
+var length = 0;
 var lastLongest;
 var longest;
 var longestCount = 0;
+var time = 0;
+var difficulty;
 $(document).ready(function()
 {
-  createDivs();
+  creatMenu();
+  // createDivs();
   // createArray();
   // startEnd();
   // createWalls();
   // createPlayer();
 });
+function creatMenu()
+{
+  $("body").append("<div id='menu'></div>");
+  $("#menu").append("<div id='difficulty'></div>");
+  $("#difficulty").append("<button id='easy'>easy</button>");
+  $("#difficulty").append("<button id='medium'>medium</button>");
+  $("#difficulty").append("<button id='hard'>hard</button>");
+  $("#menu").append("<button id='play'>create and play</button>");
+  $("#easy").click(function()
+  {
+    $(this).css("color","#00ff00");
+    $(this).css("border","3px solid #00ff00");
+    $("#medium").css("color","white");
+    $("#medium").css("border","3px solid white");
+    $("#hard").css("color","white");
+    $("#hard").css("border","3px solid white");
+    difficulty="easy";
+  })
+  $("#medium").click(function()
+  {
+    $(this).css("color","#ffff00");
+    $(this).css("border","3px solid #ffff00");
+    $("#easy").css("color","white");
+    $("#easy").css("border","3px solid white");
+    $("#hard").css("color","white");
+    $("#hard").css("border","3px solid white");
+    difficulty="medium";
+  })
+  $("#hard").click(function()
+  {
+    $(this).css("color","#ff0000");
+    $(this).css("border","3px solid #ff0000");
+    $("#easy").css("color","white");
+    $("#easy").css("border","3px solid white");
+    $("#medium").css("color","white");
+    $("#medium").css("border","3px solid white");
+    difficulty="hard";
+  })
+  $("#play").click(function()
+  {
+    if(difficulty)
+    {
+      $("#menu").remove();
+      createDivs();
+    }
+  })
+}
 function createDivs()
 {
   // rows
@@ -124,14 +174,14 @@ function startEnd()
 
   // $("#"+one+two).css("background-color", "white");
 
-  $("#"+start).css("background-color", "green");
+  $("#"+start).css("background-color", "#00ff00");
   // $("#"+end).css("background-color", "red");
-  console.log(height);
+  // console.log(height);
 
   // historyArray.push(start);
   historyArray=[start];
   // last = start;
-  console.log(start);
+  // console.log(start);
   // console.log(historyArray);
   createWalls();
 }
@@ -140,15 +190,11 @@ function createWalls()
   var first=true;
   // while (historyArray.length)
   // {
-    // for (var i=0; i<60; i++)
-    // {
-    // }
-    // break;
-    // console.log(historyArray);
     var draw = setInterval(function()
     {
       if (historyArray.length)
       {
+        time+=25;
         var split1 = historyArray[historyArray.length-1].split("x");
         var split2 = split1[1].split("y");
         // console.log(split2);
@@ -157,14 +203,14 @@ function createWalls()
         {
           first=false;
           longest = historyArray[historyArray.length-1];
-          $(longest).css("background-color","red");
+          $(longest).css("background-color","#ff0000");
         }
         if (historyArray.length >= longestCount)
         {
           longestCount = historyArray.length;
           $(longest).css("background-color","white");
           longest = historyArray[historyArray.length-1];
-          $(longest).css("background-color","red");
+          $(longest).css("background-color","#ff0000");
 
           // last = longest;
           // $(historyArray[historyArray.length-1]).css("background-color","red");
@@ -173,14 +219,16 @@ function createWalls()
       }
       else
       {
+        console.log("time: "+(time/=1000)+"s");
         window.clearInterval(draw);
         // console.log(historyArray);
-        console.log(longestCount);
+        console.log("length: "+length);
+        console.log("longest: "+longestCount);
         // console.log(historyArray.length);
-        console.log(array);
+        // console.log(array);
         // console.log(start);
-        // console.log(count);
         // console.log(last);
+        createPlayer();
       }
       // console.log("in interval");
     }, 25);
@@ -315,7 +363,7 @@ function checkDirections(x, y)
 }
 function move(possible, x, y)
 {
-  count++;
+  length++;
   // if (last)
   // {
   //   $(last).css("background-color","white");
