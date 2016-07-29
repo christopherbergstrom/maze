@@ -174,17 +174,17 @@ function createWalls()
       else
       {
         window.clearInterval(draw);
+        // console.log(historyArray);
+        console.log(longestCount);
+        // console.log(historyArray.length);
+        console.log(array);
+        // console.log(start);
+        // console.log(count);
+        // console.log(last);
       }
-      console.log("interval");
-    }, 10);
+      // console.log("in interval");
+    }, 25);
   // }
-  console.log(historyArray);
-  console.log(longestCount);
-  // console.log(historyArray.length);
-  // console.log(array);
-  // console.log(start);
-  // console.log(count);
-  // console.log(last);
 }
 function checkDirections(x, y)
 {
@@ -323,50 +323,41 @@ function move(possible, x, y)
   var whichMove = Math.floor(Math.random()*possible.length);
   if (possible[whichMove] === "U")
   {
-    console.log("x: "+x);
-    console.log("y: "+y);
+    // console.log("x: "+x);
+    // console.log("y: "+y);
     array[x][y-1] = "x";
     // console.log("up: true");
     $("#x"+x+"y"+(y-1)).css("background-color", "white");
-    // checkDirections(x, y-1);
-    // last="#x"+x+"y"+(y-1);
     historyArray.push("#x"+x+"y"+(y-1));
   }
   else if (possible[whichMove] === "D")
   {
-    console.log("x: "+x);
-    console.log("y: "+y);
+    // console.log("x: "+x);
+    // console.log("y: "+y);
     array[x][y+1] = "x";
     // console.log("down: true");
     $("#x"+x+"y"+(y+1)).css("background-color", "white");
-    // checkDirections(x, y+1);
-    // last="#x"+x+"y"+(y+1);
     historyArray.push("#x"+x+"y"+(y+1));
   }
   else if (possible[whichMove] === "L")
   {
-    console.log("x: "+x);
-    console.log("y: "+y);
+    // console.log("x: "+x);
+    // console.log("y: "+y);
     array[x-1][y] = "x";
     // console.log("left: true");
     $("#x"+(x-1)+"y"+y).css("background-color", "white");
-    // checkDirections(x-1, y);
-    // last="#x"+(x-1)+"y"+y;
     historyArray.push("#x"+(x-1)+"y"+y);
   }
   else if (possible[whichMove] === "R")
   {
-    console.log("x: "+x);
-    console.log("y: "+y);
+    // console.log("x: "+x);
+    // console.log("y: "+y);
     array[x+1][y] = "x";
     // console.log("right: true");
     $("#x"+(x+1)+"y"+y).css("background-color", "white");
-    // checkDirections(x+1, y);
-    // last="#x"+(x+1)+"y"+y;
     historyArray.push("#x"+(x+1)+"y"+y);
   }
   possible=[];
-  // return;
 }
 function createPlayer()
 {
