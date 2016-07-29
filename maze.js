@@ -12,6 +12,7 @@ var time = 0;
 var difficulty;
 var maxWidth;
 var speed;
+var position;
 $(document).ready(function()
 {
   creatMenu();
@@ -179,6 +180,7 @@ function createWalls()
       {
         first=false;
         longest = historyArray[historyArray.length-1];
+        position = historyArray[historyArray.length-1];
         $(longest).css("background-color","#ff0000");
       }
       if (historyArray.length >= longestCount)
@@ -191,15 +193,25 @@ function createWalls()
     }
     else
     {
-      console.log("time: "+(time/=1000)+"s");
       window.clearInterval(draw);
+      $(position).css("background-color","#2ea1fb");
+      position = position.split("#")[1];
+      position = position.split("x")[1];
+      position = position.split("y");
+      longest = longest.split("#")[1];
+      longest = longest.split("x")[1];
+      longest = longest.split("y");
+      start = start.split("x")[1];
+      start = start.split("y");
+      // console.log("time: "+(time/=1000)+"s");
+      // console.log("array: "+array);
       // console.log(historyArray);
-      console.log("length: "+length);
-      console.log("longest: "+longestCount);
-      // console.log(historyArray.length);
-      // console.log(array);
-      // console.log(start);
-      // console.log(last);
+      // console.log("length: "+length);
+      // console.log("longest count: "+longestCount);
+      console.log("start: "+start);
+      console.log("end: "+longest);
+      console.log("position: "+position);
+      // console.log("maze length: "+historyArray.length);
       createPlayer();
     }
     // console.log("in interval");
@@ -368,38 +380,31 @@ function move(possible, x, y)
 }
 function createPlayer()
 {
-  // start code to make player square
-  console.log(start);
-  // end code to make player square
+  // move player
   $(document).keyup(function(e)
   {
-    // left
-    if (e.which === 37)
-    {
-      console.log("left");
-      // hor-=2;
-      // player.css("left", hor+"px");
-    }
     // up
     if (e.which === 38)
     {
-      console.log("up");
-      // vert-=2;
-      // player.css("top", vert+"px");
-    }
-    // right
-    if (e.which === 39)
-    {
-      console.log("right");
-      // hor+=2;
-      // player.css("left", hor+"px");
+      if (position[1]-1 >= 0)
+      {
+        if (array[position[0],position[1]-1] === "x")
+        {
+          position[1]-=1;
+        }
+      }
     }
     // down
     if (e.which === 40)
     {
-      console.log("down");
-      // vert+=2;
-      // player.css("top", vert+"px");
+    }
+    // left
+    if (e.which === 37)
+    {
+    }
+    // right
+    if (e.which === 39)
+    {
     }
   });
 }
