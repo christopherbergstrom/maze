@@ -3,7 +3,6 @@ var historyArray;
 var height;
 var startx;
 var starty;
-var end;
 var length = 0;
 var lastLongest;
 var longest;
@@ -68,6 +67,8 @@ function creatMenu()
 }
 function createDivs()
 {
+  // create divs for maze map
+  
   // rows
   // $("body").append("<div id='container'></div>");
   // var width = window.innerWidth*.02;
@@ -100,6 +101,7 @@ function createDivs()
 }
 function createArray()
 {
+  // create maze map array
   for (var i = 0; i < 50; i++)
   {
     var tempArray = [];
@@ -109,7 +111,6 @@ function createArray()
     }
     array.push(tempArray);
   }
-  // console.log(array);
   startEnd();
 }
 function startEnd()
@@ -121,11 +122,6 @@ function startEnd()
     var two = "y"+0;
     start = one+""+two;
     array[one.split("x")[1]][two.split("y")[1]] = "x";
-
-    // var one = "x"+Math.floor(Math.random()*50);
-    // var two = "y"+(height-1);
-    // end = one+""+two;
-    // array[one.split("x")[1]][two.split("y")[1]] = "x";
   }
   else if (side === 1)
   {
@@ -133,11 +129,6 @@ function startEnd()
     var two = "y"+Math.floor(Math.random()*height);
     start = one+""+two;
     array[one.split("x")[1]][two.split("y")[1]] = "x";
-
-    // var one = "x"+0
-    // var two = "y"+Math.floor(Math.random()*height);
-    // end = one+""+two;
-    // array[one.split("x")[1]][two.split("y")[1]] = "x";
   }
   else if (side === 2)
   {
@@ -145,11 +136,6 @@ function startEnd()
     var two = "y"+(height-1);
     start = one+""+two;
     array[one.split("x")[1]][two.split("y")[1]] = "x";
-
-    // var one = "x"+Math.floor(Math.random()*50);
-    // var two = "y"+0;
-    // end = one+""+two;
-    // array[one.split("x")[1]][two.split("y")[1]] = "x";
   }
   else if (side === 3)
   {
@@ -157,82 +143,51 @@ function startEnd()
     var two = "y"+Math.floor(Math.random()*height);
     start = one+""+two;
     array[one.split("x")[1]][two.split("y")[1]] = "x";
-
-    // var one = "x"+49;
-    // var two = "y"+Math.floor(Math.random()*height);
-    // end = one+""+two;
-    // array[one.split("x")[1]][two.split("y")[1]] = "x";
   }
-
-  // var one = Math.floor(Math.random()*50);
-  // var two = Math.floor(Math.random()*height);
-  // console.log(one+""+two);
-
-  // console.log("side: "+side);
-  // console.log("start: "+start);
-  // console.log("end: "+end);
-
-  // $("#"+one+two).css("background-color", "white");
-
   $("#"+start).css("background-color", "#00ff00");
-  // $("#"+end).css("background-color", "red");
-  // console.log(height);
-
-  // historyArray.push(start);
   historyArray=[start];
-  // last = start;
-  // console.log(start);
-  // console.log(historyArray);
   createWalls();
 }
 function createWalls()
 {
   var first=true;
-  // while (historyArray.length)
-  // {
-    var draw = setInterval(function()
+  var draw = setInterval(function()
+  {
+    if (historyArray.length)
     {
-      if (historyArray.length)
+      time+=25;
+      var split1 = historyArray[historyArray.length-1].split("x");
+      var split2 = split1[1].split("y");
+      checkDirections(parseInt(split2[0]), parseInt(split2[1]));
+      if (first)
       {
-        time+=25;
-        var split1 = historyArray[historyArray.length-1].split("x");
-        var split2 = split1[1].split("y");
-        // console.log(split2);
-        checkDirections(parseInt(split2[0]), parseInt(split2[1]));
-        if (first)
-        {
-          first=false;
-          longest = historyArray[historyArray.length-1];
-          $(longest).css("background-color","#ff0000");
-        }
-        if (historyArray.length >= longestCount)
-        {
-          longestCount = historyArray.length;
-          $(longest).css("background-color","white");
-          longest = historyArray[historyArray.length-1];
-          $(longest).css("background-color","#ff0000");
-
-          // last = longest;
-          // $(historyArray[historyArray.length-1]).css("background-color","red");
-        }
-        // console.log("history: "+historyArray[historyArray.length-1]);
+        first=false;
+        longest = historyArray[historyArray.length-1];
+        $(longest).css("background-color","#ff0000");
       }
-      else
+      if (historyArray.length >= longestCount)
       {
-        console.log("time: "+(time/=1000)+"s");
-        window.clearInterval(draw);
-        // console.log(historyArray);
-        console.log("length: "+length);
-        console.log("longest: "+longestCount);
-        // console.log(historyArray.length);
-        // console.log(array);
-        // console.log(start);
-        // console.log(last);
-        createPlayer();
+        longestCount = historyArray.length;
+        $(longest).css("background-color","white");
+        longest = historyArray[historyArray.length-1];
+        $(longest).css("background-color","#ff0000");
       }
-      // console.log("in interval");
-    }, 25);
-  // }
+    }
+    else
+    {
+      console.log("time: "+(time/=1000)+"s");
+      window.clearInterval(draw);
+      // console.log(historyArray);
+      console.log("length: "+length);
+      console.log("longest: "+longestCount);
+      // console.log(historyArray.length);
+      // console.log(array);
+      // console.log(start);
+      // console.log(last);
+      createPlayer();
+    }
+    // console.log("in interval");
+  }, 25);
 }
 function checkDirections(x, y)
 {
@@ -242,12 +197,11 @@ function checkDirections(x, y)
   var possible = [];
   for (var i=0; i<4; i++)
   {
-    // up
+    // check up
     if (i === 0)
     {
       if (y-2 >= 0)
       {
-        // console.log("up");
         if (x === 0)
         {
           if (array[x][y-2] === " " && array[x][y-1] === " " && array[x+1][y-1] === " ")
@@ -268,12 +222,11 @@ function checkDirections(x, y)
         }
       }
     }
-    // down
+    // check down
     if (i === 1)
     {
       if (y+2 <= height-1)
       {
-        // console.log("down");
         if (x === 0)
         {
           if (array[x][y+2] === " " && array[x][y+1] === " " && array[x+1][y+1] === " ")
@@ -294,12 +247,11 @@ function checkDirections(x, y)
         }
       }
     }
-    // left
+    // check left
     if (i === 2)
     {
       if (x-2 >= 0)
       {
-        // console.log("left");
         if (y === 0)
         {
           if (array[x-2][y] === " " && array[x-1][y] === " " && array[x-1][y+1] === " ")
@@ -320,12 +272,11 @@ function checkDirections(x, y)
         }
       }
     }
-    // right
+    // check right
     if (i === 3)
     {
       if (x+2 <= 49)
       {
-        // console.log("right");
         if (y === 0)
         {
           if (array[x+2][y] === " " && array[x+1][y] === " " && array[x+1][y+1] === " ")
@@ -347,64 +298,56 @@ function checkDirections(x, y)
       }
     }
   }
-  // console.log(possible);
-  // console.log(possible.length);
   if (possible.length)
   {
-    // longestCount++;
     move(possible, x, y);
-    // return move(possible);
   }
   else
   {
     historyArray.pop();
-    // return;
   }
 }
 function move(possible, x, y)
 {
   length++;
-  // if (last)
-  // {
-  //   $(last).css("background-color","white");
-  // }
   var whichMove = Math.floor(Math.random()*possible.length);
+  // move up
   if (possible[whichMove] === "U")
   {
     // console.log("x: "+x);
     // console.log("y: "+y);
     array[x][y-1] = "x";
-    // console.log("up: true");
     $("#x"+x+"y"+(y-1)).css("background-color", "white");
     historyArray.push("#x"+x+"y"+(y-1));
   }
+  // move down
   else if (possible[whichMove] === "D")
   {
     // console.log("x: "+x);
     // console.log("y: "+y);
     array[x][y+1] = "x";
-    // console.log("down: true");
     $("#x"+x+"y"+(y+1)).css("background-color", "white");
     historyArray.push("#x"+x+"y"+(y+1));
   }
+  // move left
   else if (possible[whichMove] === "L")
   {
     // console.log("x: "+x);
     // console.log("y: "+y);
     array[x-1][y] = "x";
-    // console.log("left: true");
     $("#x"+(x-1)+"y"+y).css("background-color", "white");
     historyArray.push("#x"+(x-1)+"y"+y);
   }
+  // move right
   else if (possible[whichMove] === "R")
   {
     // console.log("x: "+x);
     // console.log("y: "+y);
     array[x+1][y] = "x";
-    // console.log("right: true");
     $("#x"+(x+1)+"y"+y).css("background-color", "white");
     historyArray.push("#x"+(x+1)+"y"+y);
   }
+  // reset possible moves
   possible=[];
 }
 function createPlayer()
