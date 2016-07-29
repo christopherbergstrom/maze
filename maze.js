@@ -122,6 +122,7 @@ function startEnd()
 
   $("#"+start).css("background-color", "green");
   // $("#"+end).css("background-color", "red");
+  console.log(height);
 
   // histortArray.push(start);
   histortArray=[start];
@@ -163,7 +164,21 @@ function checkDirections(x, y)
       if (y-2 >= 0)
       {
         console.log("up");
-        if (array[x][y-2] === " " && array[x][y-1] === " ")
+        if (x === 0)
+        {
+          if (array[x][y-2] === " " && array[x][y-1] === " " && array[x+1][y-1] === " ")
+          {
+            possible.push("U");
+          }
+        }
+        else if (x === 49)
+        {
+          if (array[x][y-2] === " " && array[x][y-1] === " " && array[x-1][y-1] === " ")
+          {
+            possible.push("U");
+          }
+        }
+        else if (array[x][y-2] === " " && array[x][y-1] === " " && array[x+1][y-1] === " " && array[x-1][y-1] === " ")
         {
           possible.push("U");
         }
@@ -172,10 +187,24 @@ function checkDirections(x, y)
     // down
     if (i === 1)
     {
-      if (y+2 <= height-2)
+      if (y+2 <= height-1)
       {
         console.log("down");
-        if (array[x][y+2] === " " && array[x][y+1] === " ")
+        if (x === 0)
+        {
+          if (array[x][y+2] === " " && array[x][y+1] === " " && array[x+1][y+1] === " ")
+          {
+            possible.push("D");
+          }
+        }
+        else if (x === 49)
+        {
+          if (array[x][y+2] === " " && array[x][y+1] === " "&& array[x-1][y+1] === " ")
+          {
+            possible.push("D");
+          }
+        }
+        else if (array[x][y+2] === " " && array[x][y+1] === " " && array[x+1][y+1] === " " && array[x-1][y+1] === " ")
         {
           possible.push("D");
         }
@@ -187,7 +216,21 @@ function checkDirections(x, y)
       if (x-2 >= 0)
       {
         console.log("left");
-        if (array[x-2][y] === " " && array[x-1][y] === " ")
+        if (y === 0)
+        {
+          if (array[x-2][y] === " " && array[x-1][y] === " " && array[x-1][y+1] === " ")
+          {
+            possible.push("L");
+          }
+        }
+        else if (y === height-1)
+        {
+          if (array[x-2][y] === " " && array[x-1][y] === " " && array[x-1][y-1] === " ")
+          {
+            possible.push("L");
+          }
+        }
+        else if (array[x-2][y] === " " && array[x-1][y] === " " && array[x-1][y+1] === " " && array[x-1][y-1] === " ")
         {
           possible.push("L");
         }
@@ -199,7 +242,21 @@ function checkDirections(x, y)
       if (x+2 <= 49)
       {
         console.log("right");
-        if (array[x+2][y] === " " && array[x+1][y] === " ")
+        if (y === 0)
+        {
+          if (array[x+2][y] === " " && array[x+1][y] === " " && array[x+1][y+1] === " ")
+          {
+            possible.push("R");
+          }
+        }
+        else if (y === height-1)
+        {
+          if (array[x+2][y] === " " && array[x+1][y] === " " && array[x+1][y-1] === " ")
+          {
+            possible.push("R");
+          }
+        }
+        else if (array[x+2][y] === " " && array[x+1][y] === " " && array[x+1][y+1] === " " && array[x+1][y-1] === " ")
         {
           possible.push("R");
         }
