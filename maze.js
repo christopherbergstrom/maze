@@ -138,35 +138,46 @@ function startEnd()
 function createWalls()
 {
   var first=true;
-  while (historyArray.length)
-  {
+  // while (historyArray.length)
+  // {
     // for (var i=0; i<60; i++)
     // {
     // }
     // break;
     // console.log(historyArray);
-    var split1 = historyArray[historyArray.length-1].split("x");
-    var split2 = split1[1].split("y");
-    // console.log(split2);
-    checkDirections(parseInt(split2[0]), parseInt(split2[1]));
-    if (first)
+    var draw = setInterval(function()
     {
-      first=false;
-      longest = historyArray[historyArray.length-1];
-      $(longest).css("background-color","red");
-    }
-    if (historyArray.length >= longestCount)
-    {
-      longestCount = historyArray.length;
-      $(longest).css("background-color","white");
-      longest = historyArray[historyArray.length-1];
-      $(longest).css("background-color","red");
+      if (historyArray.length)
+      {
+        var split1 = historyArray[historyArray.length-1].split("x");
+        var split2 = split1[1].split("y");
+        // console.log(split2);
+        checkDirections(parseInt(split2[0]), parseInt(split2[1]));
+        if (first)
+        {
+          first=false;
+          longest = historyArray[historyArray.length-1];
+          $(longest).css("background-color","red");
+        }
+        if (historyArray.length >= longestCount)
+        {
+          longestCount = historyArray.length;
+          $(longest).css("background-color","white");
+          longest = historyArray[historyArray.length-1];
+          $(longest).css("background-color","red");
 
-      // last = longest;
-      // $(historyArray[historyArray.length-1]).css("background-color","red");
-    }
-    // console.log("history: "+historyArray[historyArray.length-1]);
-  }
+          // last = longest;
+          // $(historyArray[historyArray.length-1]).css("background-color","red");
+        }
+        // console.log("history: "+historyArray[historyArray.length-1]);
+      }
+      else
+      {
+        window.clearInterval(draw);
+      }
+      console.log("interval");
+    }, 10);
+  // }
   console.log(historyArray);
   console.log(longestCount);
   // console.log(historyArray.length);
