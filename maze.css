@@ -11,21 +11,6 @@ body
   height: 100%;
   background-color: black;
 }
-/*rows*/
-/*.row
-{
-  position: relative;
-  width: 100%;
-  height: 2vw;
-}
-.wall
-{
-  display: inline-block;
-  background-color: black;
-  width: 2vw;
-  height: 100%;
-}*/
-/*cols*/
 .colL
 {
   position: relative;

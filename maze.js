@@ -1,6 +1,7 @@
 var array=[];
 var historyArray;
 var height;
+var start;
 var startx;
 var starty;
 var length = 0;
@@ -10,6 +11,7 @@ var longestCount = 0;
 var time = 0;
 var difficulty;
 var maxWidth;
+var speed;
 $(document).ready(function()
 {
   creatMenu();
@@ -37,8 +39,7 @@ function creatMenu()
     $("#hard").css("border","3px solid white");
     difficulty=.04;
     maxWidth=25;
-    // $(".col").width("4vw");
-    // $(".wall").height("4vw");
+    speed=20;
   })
   $("#medium").click(function()
   {
@@ -50,8 +51,7 @@ function creatMenu()
     $("#hard").css("border","3px solid white");
     difficulty=.02;
     maxWidth=50;
-    // $(".col").width("2vw");
-    // $(".wall").height("2vw");
+    speed=10;
   })
   $("#hard").click(function()
   {
@@ -63,8 +63,7 @@ function creatMenu()
     $("#medium").css("border","3px solid white");
     difficulty=.01;
     maxWidth=100;
-    // $(".col").width("1vw");
-    // $(".wall").height("1vw");
+    speed=5;
   })
   $("#play").click(function()
   {
@@ -78,22 +77,6 @@ function creatMenu()
 function createDivs()
 {
   // create divs for maze map
-
-  // rows
-  // $("body").append("<div id='container'></div>");
-  // var width = window.innerWidth*.02;
-  // height = Math.floor(window.innerHeight / width);
-  // for (var i = 0; i < height; i++)
-  // {
-  //   var item = $("<div class='row'></div>");
-  //   for (var j = 0; j < 50; j++)
-  //   {
-  //     item.append("<div class='wall'></div>")
-  //   }
-  //   $("#container").append(item);
-  //   $("body").append($("#container"));
-  // }
-  // cols
   $("body").append("<div id='container'></div>");
   var width = window.innerWidth*difficulty;
   height = Math.floor(window.innerHeight / width);
@@ -182,12 +165,13 @@ function startEnd()
 }
 function createWalls()
 {
+  // actually make the maze
   var first=true;
   var draw = setInterval(function()
   {
     if (historyArray.length)
     {
-      time+=25;
+      time+=speed;
       var split1 = historyArray[historyArray.length-1].split("x");
       var split2 = split1[1].split("y");
       checkDirections(parseInt(split2[0]), parseInt(split2[1]));
@@ -219,7 +203,7 @@ function createWalls()
       createPlayer();
     }
     // console.log("in interval");
-  }, 25);
+  }, speed);
 }
 function checkDirections(x, y)
 {
@@ -385,7 +369,7 @@ function move(possible, x, y)
 function createPlayer()
 {
   // start code to make player square
-
+  console.log(start);
   // end code to make player square
   $(document).keyup(function(e)
   {
