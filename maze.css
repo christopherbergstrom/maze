@@ -127,3 +127,15 @@ button
   color: #66ffff;
   border: 3px solid #66ffff;
 }
+@media only screen and (max-device-width: 480px)
+{
+  #menu
+  {
+    /*position: absolute;*/
+    /*top: 10vh;*/
+    left: 0%;
+    width: 90vw;
+    height: 70vh;
+    text-align: center;
+  }
+}
