@@ -38,10 +38,10 @@ function creatMenu()
   {
     $(this).css("color","#00ff00");
     $(this).css("border","3px solid #00ff00");
-    $("#medium").css("color","white");
-    $("#medium").css("border","3px solid white");
-    $("#hard").css("color","white");
-    $("#hard").css("border","3px solid white");
+    $("#medium").css("color","#666600");
+    $("#medium").css("border","3px solid #666600");
+    $("#hard").css("color","#660000");
+    $("#hard").css("border","3px solid #660000");
     difficulty=.04;
     maxWidth=25;
     speed=20;
@@ -50,10 +50,10 @@ function creatMenu()
   {
     $(this).css("color","#ffff00");
     $(this).css("border","3px solid #ffff00");
-    $("#easy").css("color","white");
-    $("#easy").css("border","3px solid white");
-    $("#hard").css("color","white");
-    $("#hard").css("border","3px solid white");
+    $("#easy").css("color","#006600");
+    $("#easy").css("border","3px solid #006600");
+    $("#hard").css("color","#660000");
+    $("#hard").css("border","3px solid #660000");
     difficulty=.02;
     maxWidth=50;
     speed=10;
@@ -62,10 +62,10 @@ function creatMenu()
   {
     $(this).css("color","#ff0000");
     $(this).css("border","3px solid #ff0000");
-    $("#easy").css("color","white");
-    $("#easy").css("border","3px solid white");
-    $("#medium").css("color","white");
-    $("#medium").css("border","3px solid white");
+    $("#easy").css("color","#006600");
+    $("#easy").css("border","3px solid #006600");
+    $("#medium").css("color","#666600");
+    $("#medium").css("border","3px solid #666600");
     difficulty=.01;
     maxWidth=100;
     speed=5;
@@ -74,6 +74,7 @@ function creatMenu()
   {
     if(difficulty)
     {
+      $("#title").remove();
       $("#menu").remove();
       createDivs();
     }

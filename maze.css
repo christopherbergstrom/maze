@@ -2,6 +2,12 @@ body
 {
   background-color: black;
 }
+#title
+{
+  color: white;
+  font-size: 4em;
+  text-align: center;
+}
 #container
 {
   position: absolute;
@@ -98,22 +104,33 @@ button
 }
 #easy
 {
-  /*color: #00ff00;*/
+  color: #006600;
+  border: 3px solid #006600;
+}
+#medium
+{
+  color: #666600;
+  border: 3px solid #666600;
+}
+#hard
+{
+  color: #660000;
+  border: 3px solid #660000;
 }
 #easy:hover
 {
-  color: #006600 !important;
-  border: 3px solid #006600 !important;
+  color: #00ff00 !important;
+  border: 3px solid #00ff00 !important;
 }
 #medium:hover
 {
-  color: #666600 !important;
-  border: 3px solid #666600 !important;
+  color: #ffff00 !important;
+  border: 3px solid #ffff00 !important;
 }
 #hard:hover
 {
-  color: #660000 !important;
-  border: 3px solid #660000 !important;
+  color: #ff0000 !important;
+  border: 3px solid #ff0000 !important;
 }
 #play
 {
