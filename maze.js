@@ -396,7 +396,7 @@ function move(possible, x, y)
 function createPlayer()
 {
   // move player
-  $(document).keyup(function(e)
+  $(document).keydown(function(e)
   {
     // up
     if (e.which === 38)
@@ -483,7 +483,7 @@ function checkWin()
   {
     console.log("win!");
     window.clearInterval(timeInterval);
-    $(document).keyup=null;
+    $(document).keydown=null;
     var whichNoise = Math.floor(Math.random()*2);
     if (whichNoise === 0)
     {
