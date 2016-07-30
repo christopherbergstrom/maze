@@ -483,7 +483,7 @@ function checkWin()
   {
     console.log("win!");
     window.clearInterval(timeInterval);
-    $(document).keydown=null;
+    $(document).off("keydown");
     var whichNoise = Math.floor(Math.random()*2);
     if (whichNoise === 0)
     {
