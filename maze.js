@@ -84,8 +84,7 @@ function createDivs()
   // create divs for maze map
   $("body").append("<div id='container'></div>");
   var width = window.innerWidth*difficulty;
-  height = Math.floor((window.innerHeight) / (width-1));
-  // height-=1;
+  height = Math.floor((window.innerHeight) / width);
   for (var i = 0; i < maxWidth; i++)
   {
     if (difficulty === .04)
