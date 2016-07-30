@@ -218,7 +218,7 @@ function createWalls()
       // console.log("array: "+array);
       // console.log(historyArray);
       // console.log("length: "+length);
-      // console.log("longest count: "+longestCount);
+      console.log("longest count: "+longestCount);
       console.log("start: "+start);
       console.log("end: "+longest);
       console.log("position: "+position);
@@ -433,6 +433,7 @@ function createPlayer()
           $("#x"+position[0]+"y"+position[1]).css("background-color","white");
           position[1]+=1;
           $("#x"+position[0]+"y"+position[1]).css("background-color","#2ea1fb");
+          moves++;
           checkWin();
         }
       }
@@ -452,6 +453,7 @@ function createPlayer()
           $("#x"+position[0]+"y"+position[1]).css("background-color","white");
           position[0]-=1;
           $("#x"+position[0]+"y"+position[1]).css("background-color","#2ea1fb");
+          moves++;
           checkWin();
         }
       }
@@ -471,6 +473,7 @@ function createPlayer()
           $("#x"+position[0]+"y"+position[1]).css("background-color","white");
           position[0]+=1;
           $("#x"+position[0]+"y"+position[1]).css("background-color","#2ea1fb");
+          moves++;
           checkWin();
         }
       }
