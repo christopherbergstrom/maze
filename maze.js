@@ -13,6 +13,10 @@ var difficulty;
 var maxWidth;
 var speed;
 var position;
+var moves=0;
+var timeTaken=0;
+var timeInterval;
+
 $(document).ready(function()
 {
   creatMenu();
@@ -41,7 +45,7 @@ function creatMenu()
     difficulty=.04;
     maxWidth=25;
     speed=20;
-  })
+  });
   $("#medium").click(function()
   {
     $(this).css("color","#ffff00");
@@ -53,7 +57,7 @@ function creatMenu()
     difficulty=.02;
     maxWidth=50;
     speed=10;
-  })
+  });
   $("#hard").click(function()
   {
     $(this).css("color","#ff0000");
@@ -65,7 +69,7 @@ function creatMenu()
     difficulty=.01;
     maxWidth=100;
     speed=5;
-  })
+  });
   $("#play").click(function()
   {
     if(difficulty)
@@ -73,7 +77,7 @@ function creatMenu()
       $("#menu").remove();
       createDivs();
     }
-  })
+  });
 }
 function createDivs()
 {
@@ -220,6 +224,10 @@ function createWalls()
       console.log("position: "+position);
       // console.log("maze length: "+historyArray.length);
       createPlayer();
+      timeInterval = setInterval(function()
+      {
+        timeTaken+=10;
+      }, 10);
     }
     // console.log("in interval");
   }, speed);
@@ -405,6 +413,8 @@ function createPlayer()
           $("#x"+position[0]+"y"+position[1]).css("background-color","white");
           position[1]-=1;
           $("#x"+position[0]+"y"+position[1]).css("background-color","#2ea1fb");
+          moves++;
+          checkWin();
         }
       }
     }
@@ -423,6 +433,7 @@ function createPlayer()
           $("#x"+position[0]+"y"+position[1]).css("background-color","white");
           position[1]+=1;
           $("#x"+position[0]+"y"+position[1]).css("background-color","#2ea1fb");
+          checkWin();
         }
       }
     }
@@ -441,6 +452,7 @@ function createPlayer()
           $("#x"+position[0]+"y"+position[1]).css("background-color","white");
           position[0]-=1;
           $("#x"+position[0]+"y"+position[1]).css("background-color","#2ea1fb");
+          checkWin();
         }
       }
     }
@@ -459,8 +471,39 @@ function createPlayer()
           $("#x"+position[0]+"y"+position[1]).css("background-color","white");
           position[0]+=1;
           $("#x"+position[0]+"y"+position[1]).css("background-color","#2ea1fb");
+          checkWin();
         }
       }
     }
   });
+}
+function checkWin()
+{
+  if (position[0] === longest[0] && position[1] === longest[1])
+  {
+    console.log("win!");
+    window.clearInterval(timeInterval);
+    $(document).keyup=null;
+    var whichNoise = Math.floor(Math.random()*2);
+    if (whichNoise === 0)
+    {
+      $("#win1")[0].play();
+    }
+    else if (whichNoise === 1)
+    {
+      $("#win2")[0].play();
+    }
+    $("body").append("<div id='menu'></div>");
+    $("#menu").append("<div id='difficulty'></div>");
+    $("#difficulty").append("<div class='dataLabel'>Time: <span class='data'>"+(timeTaken/1000)+"s<span></div>");
+    $("#difficulty").append("<div class='dataLabel'>Moves:  <span class='data'>"+moves+"<span></div>");
+    $("#menu").append("<button id='play'>play again</button>");
+    $("#play").click(function()
+    {
+      if(difficulty)
+      {
+        location.reload();
+      }
+    });
+  }
 }

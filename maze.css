@@ -68,6 +68,18 @@ button
   border: 3px solid white;
   color: white;
 }
+.dataLabel
+{
+  /*display: inline-block;*/
+  font-size: 3em;
+  /*background-color: black;*/
+  /*border: 3px solid white;*/
+  color: white;
+}
+.data
+{
+  color: #ffff00;
+}
 #difficulty
 {
   padding-top: 10%;
@@ -78,7 +90,11 @@ button
 {
   display: inline-block;
   margin: 1%;
-  /*background-color: green;*/
+}
+#difficulty div
+{
+  display: inline-block;
+  margin: 1%;
 }
 #easy
 {
