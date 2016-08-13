@@ -9,9 +9,9 @@ var lastLongest;
 var longest;
 var longestCount = 0;
 var time = 0;
-var difficulty;
-var maxWidth;
-var speed;
+var difficulty = .02;
+var maxWidth = 50;
+var speed = 10;
 var position;
 var moves=0;
 var timeTaken=0;
@@ -39,7 +39,7 @@ function creatMenu()
   $("#difficulty").append("<button id='medium'>medium</button>");
   $("#difficulty").append("<button id='hard'>hard</button>");
   $("#menu").append("<div id='theme'></div>");
-  $("#theme").append("<select id='select'><option>Color Theme</option><option>Classic</option><option>Dark</option><option>Light</option></select>");
+  $("#theme").append("<select id='select'><option>Classic</option><option>Dark</option><option>Light</option></select>");
   $("#menu").append("<button id='play'>create and play</button>");
   $("#easy").click(function()
   {
@@ -82,11 +82,7 @@ function creatMenu()
     console.log("in theme change");
     var theme = $("#select").val();
     console.log(theme);
-    if (theme === "")
-    {
-      changeTheme("#00ff00", "#ff0000", "#2ea1fb", "#000000", "#ffffff");
-    }
-    else if (theme === "Classic")
+    if (theme === "Classic")
     {
       changeTheme("#00ff00", "#ff0000", "#2ea1fb", "#000000", "#ffffff");
     }
