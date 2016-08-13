@@ -16,6 +16,11 @@ var position;
 var moves=0;
 var timeTaken=0;
 var timeInterval;
+var startColor="#00ff00";
+var endColor="#ff0000";
+var playerColor="#2ea1fb";
+var backColor="#000000";
+var mazeColor="#ffffff";
 
 $(document).ready(function()
 {
@@ -33,6 +38,8 @@ function creatMenu()
   $("#difficulty").append("<button id='easy'>easy</button>");
   $("#difficulty").append("<button id='medium'>medium</button>");
   $("#difficulty").append("<button id='hard'>hard</button>");
+  $("#menu").append("<div id='theme'></div>");
+  $("#theme").append("<select id='select'><option>Color Theme</option><option>Classic</option><option>Dark</option><option>Light</option></select>");
   $("#menu").append("<button id='play'>create and play</button>");
   $("#easy").click(function()
   {
@@ -70,6 +77,28 @@ function creatMenu()
     maxWidth=100;
     speed=5;
   });
+  $("#theme").change(function()
+  {
+    console.log("in theme change");
+    var theme = $("#select").val();
+    console.log(theme);
+    if (theme === "")
+    {
+      changeTheme("#00ff00", "#ff0000", "#2ea1fb", "#000000", "#ffffff");
+    }
+    else if (theme === "Classic")
+    {
+      changeTheme("#00ff00", "#ff0000", "#2ea1fb", "#000000", "#ffffff");
+    }
+    else if (theme === "Dark")
+    {
+      changeTheme("#006400", "#8b0000", "#000080", "#0d0d0d", "#4d4d4d");
+    }
+    else if (theme === "Light")
+    {
+      changeTheme("#66ff66", "#ff6666", "#69bcfc", "#bfbfbf", "#ffffff");
+    }
+  });
   $("#play").click(function()
   {
     if(difficulty)
@@ -79,6 +108,14 @@ function creatMenu()
       createDivs();
     }
   });
+}
+function changeTheme(sC, eC, pC, bC, mC)
+{
+  startColor = sC;
+  endColor = eC;
+  playerColor = pC;
+  backColor = bC;
+  mazeColor = mC;
 }
 function createDivs()
 {
@@ -118,6 +155,11 @@ function createDivs()
     $("#container").append(item);
     $("body").append($("#container"));
   }
+  $("body").css("background-color",backColor);
+  $("#container").css("background-color",backColor);
+  $(".wallS").css("background-color",backColor);
+  $(".wallM").css("background-color",backColor);
+  $(".wallL").css("background-color",backColor);
   createArray();
 }
 function createArray()
@@ -166,7 +208,7 @@ function startEnd()
     start = one+""+two;
     array[one.split("x")[1]][two.split("y")[1]] = "x";
   }
-  $("#"+start).css("background-color", "#00ff00");
+  $("#"+start).css("background-color", startColor);
   historyArray=[start];
   createWalls();
 }
@@ -187,20 +229,20 @@ function createWalls()
         first=false;
         longest = historyArray[historyArray.length-1];
         position = historyArray[historyArray.length-1];
-        $(longest).css("background-color","#ff0000");
+        $(longest).css("background-color",endColor);
       }
       if (historyArray.length >= longestCount)
       {
         longestCount = historyArray.length;
-        $(longest).css("background-color","white");
+        $(longest).css("background-color",mazeColor);
         longest = historyArray[historyArray.length-1];
-        $(longest).css("background-color","#ff0000");
+        $(longest).css("background-color",endColor);
       }
     }
     else
     {
       window.clearInterval(draw);
-      $(position).css("background-color","#2ea1fb");
+      $(position).css("background-color",playerColor);
       position = position.split("#")[1];
       position = position.split("x")[1];
       position = position.split("y");
@@ -361,7 +403,7 @@ function move(possible, x, y)
     // console.log("x: "+x);
     // console.log("y: "+y);
     array[x][y-1] = "x";
-    $("#x"+x+"y"+(y-1)).css("background-color", "white");
+    $("#x"+x+"y"+(y-1)).css("background-color", mazeColor);
     historyArray.push("#x"+x+"y"+(y-1));
   }
   // move down
@@ -370,7 +412,7 @@ function move(possible, x, y)
     // console.log("x: "+x);
     // console.log("y: "+y);
     array[x][y+1] = "x";
-    $("#x"+x+"y"+(y+1)).css("background-color", "white");
+    $("#x"+x+"y"+(y+1)).css("background-color", mazeColor);
     historyArray.push("#x"+x+"y"+(y+1));
   }
   // move left
@@ -379,7 +421,7 @@ function move(possible, x, y)
     // console.log("x: "+x);
     // console.log("y: "+y);
     array[x-1][y] = "x";
-    $("#x"+(x-1)+"y"+y).css("background-color", "white");
+    $("#x"+(x-1)+"y"+y).css("background-color", mazeColor);
     historyArray.push("#x"+(x-1)+"y"+y);
   }
   // move right
@@ -388,7 +430,7 @@ function move(possible, x, y)
     // console.log("x: "+x);
     // console.log("y: "+y);
     array[x+1][y] = "x";
-    $("#x"+(x+1)+"y"+y).css("background-color", "white");
+    $("#x"+(x+1)+"y"+y).css("background-color", mazeColor);
     historyArray.push("#x"+(x+1)+"y"+y);
   }
   // reset possible moves
@@ -411,9 +453,9 @@ function createPlayer()
         else if (array[position[0]][position[1]-1] === "x")
         {
           // can move here
-          $("#x"+position[0]+"y"+position[1]).css("background-color","white");
+          $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
           position[1]-=1;
-          $("#x"+position[0]+"y"+position[1]).css("background-color","#2ea1fb");
+          $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
           moves++;
           checkWin();
         }
@@ -431,9 +473,9 @@ function createPlayer()
         else if (array[position[0]][position[1]+1] === "x")
         {
           // can move here
-          $("#x"+position[0]+"y"+position[1]).css("background-color","white");
+          $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
           position[1]+=1;
-          $("#x"+position[0]+"y"+position[1]).css("background-color","#2ea1fb");
+          $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
           moves++;
           checkWin();
         }
@@ -451,9 +493,9 @@ function createPlayer()
         else if (array[position[0]-1][position[1]] === "x")
         {
           // can move here
-          $("#x"+position[0]+"y"+position[1]).css("background-color","white");
+          $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
           position[0]-=1;
-          $("#x"+position[0]+"y"+position[1]).css("background-color","#2ea1fb");
+          $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
           moves++;
           checkWin();
         }
@@ -471,9 +513,9 @@ function createPlayer()
         else if (array[position[0]+1][position[1]] === "x")
         {
           // can move here
-          $("#x"+position[0]+"y"+position[1]).css("background-color","white");
+          $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
           position[0]+=1;
-          $("#x"+position[0]+"y"+position[1]).css("background-color","#2ea1fb");
+          $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
           moves++;
           checkWin();
         }
