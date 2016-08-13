@@ -92,11 +92,11 @@ function creatMenu()
     }
     else if (theme === "Dark")
     {
-      changeTheme("#006400", "#8b0000", "#000080", "#0d0d0d", "#4d4d4d");
+      changeTheme("#006400", "#8b0000", "#ffffff", "#000000", "#808080");
     }
     else if (theme === "Light")
     {
-      changeTheme("#66ff66", "#ff6666", "#69bcfc", "#bfbfbf", "#ffffff");
+      changeTheme("#66ff66", "#ff6666", "#000000", "#bfbfbf", "#ffffff");
     }
   });
   $("#play").click(function()
