@@ -60,7 +60,7 @@ body
 {
   position: absolute;
   width: 50vw;
-  height: 70vh;
+  /*height: 50vh;*/
   top: 25%;
   left: 25%;
   text-align: center;
@@ -182,6 +182,19 @@ select
 {
   color: #ff0000 !important;
   border: 3px solid #ff0000 !important;
+}
+#play
+{
+  position: relative;
+  color: #00cccc;
+  border: 3px solid #00cccc;
+  margin-bottom: 10%;
+}
+#play:hover
+{
+  position: relative;
+  color: #66ffff;
+  border: 3px solid #66ffff;
 }
 @media only screen and (max-device-width: 480px)
 {

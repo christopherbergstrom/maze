@@ -333,6 +333,10 @@ function createWalls()
     console.log("position: "+position);
     // console.log("maze length: "+historyArray.length);
     createPlayer();
+    timeInterval = setInterval(function()
+    {
+      timeTaken+=10;
+    }, 10);
   }
 }
 function checkDirections(x, y)
