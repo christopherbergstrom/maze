@@ -106,18 +106,52 @@ select
 }
 #theme
 {
-  /*padding-top: 10%;*/
   padding-bottom: 10%;
   position: relative;
 }
-#theme select
+#select
 {
   display: inline-block;
   margin: 1%;
 }
-#theme select:hover
+#select:hover
 {
   cursor: pointer;
+}
+#text
+{
+  font-size: 2em;
+  color: white;
+}
+#yesNo
+{
+  padding-bottom: 10%;
+  position: relative;
+}
+#yesNo button
+{
+  display: inline-block;
+  margin: 1%;
+}
+#yes
+{
+  color: #fa8072;
+  border: 3px solid #fa8072;
+}
+#yes:hover
+{
+  color: #fdd3ce;
+  border: 3px solid #fdd3ce;
+}
+#no
+{
+  color: #00cccc;
+  border: 3px solid #00cccc;
+}
+#no:hover
+{
+  color: #66ffff;
+  border: 3px solid #66ffff;
 }
 #easy
 {
@@ -148,18 +182,6 @@ select
 {
   color: #ff0000 !important;
   border: 3px solid #ff0000 !important;
-}
-#play
-{
-  position: relative;
-  color: #00cccc;
-  border: 3px solid #00cccc;
-}
-#play:hover
-{
-  position: relative;
-  color: #66ffff;
-  border: 3px solid #66ffff;
 }
 @media only screen and (max-device-width: 480px)
 {

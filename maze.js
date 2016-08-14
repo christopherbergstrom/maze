@@ -12,6 +12,7 @@ var time = 0;
 var difficulty = .02;
 var maxWidth = 50;
 var speed = 10;
+var watch=true;
 var position;
 var moves=0;
 var timeTaken=0;
@@ -40,7 +41,10 @@ function creatMenu()
   $("#difficulty").append("<button id='hard'>hard</button>");
   $("#menu").append("<div id='theme'></div>");
   $("#theme").append("<select id='select'><option>Classic</option><option>Dark</option><option>Light</option></select>");
-  $("#menu").append("<button id='play'>create and play</button>");
+  $("#menu").append("<div id='text'>Watch maze create itself?</div>");
+  $("#menu").append("<div id='yesNo'></div>");
+  $("#yesNo").append("<button id='yes'>yes</button>");
+  $("#yesNo").append("<button id='no'>no</button>");
   $("#easy").click(function()
   {
     $(this).css("color","#00ff00");
@@ -79,9 +83,7 @@ function creatMenu()
   });
   $("#theme").change(function()
   {
-    console.log("in theme change");
     var theme = $("#select").val();
-    console.log(theme);
     if (theme === "Classic")
     {
       changeTheme("#00ff00", "#ff0000", "#2ea1fb", "#000000", "#ffffff");
@@ -95,15 +97,24 @@ function creatMenu()
       changeTheme("#66ff66", "#ff6666", "#000000", "#bfbfbf", "#ffffff");
     }
   });
-  $("#play").click(function()
+  $("#yes").click(function()
   {
-    if(difficulty)
-    {
-      $("#title").remove();
-      $("#menu").remove();
-      createDivs();
-    }
+    start(true)
   });
+  $("#no").click(function()
+  {
+    start(false)
+  });
+}
+function start(which)
+{
+  if(difficulty)
+  {
+    watch=which;
+    $("#title").remove();
+    $("#menu").remove();
+    createDivs();
+  }
 }
 function changeTheme(sC, eC, pC, bC, mC)
 {
@@ -212,9 +223,70 @@ function createWalls()
 {
   // actually make the maze
   var first=true;
-  var draw = setInterval(function()
+  if (watch)
   {
-    if (historyArray.length)
+    var draw = setInterval(function()
+    {
+      if (historyArray.length)
+      {
+        time+=speed;
+        var split1 = historyArray[historyArray.length-1].split("x");
+        var split2 = split1[1].split("y");
+        checkDirections(parseInt(split2[0]), parseInt(split2[1]));
+        if (first)
+        {
+          first=false;
+          longest = historyArray[historyArray.length-1];
+          position = historyArray[historyArray.length-1];
+          $(longest).css("background-color",endColor);
+        }
+        if (historyArray.length >= longestCount)
+        {
+          longestCount = historyArray.length;
+          $(longest).css("background-color",mazeColor);
+          longest = historyArray[historyArray.length-1];
+          $(longest).css("background-color",endColor);
+        }
+      }
+      else
+      {
+        window.clearInterval(draw);
+        $(position).css("background-color",playerColor);
+        position = position.split("#")[1];
+        position = position.split("x")[1];
+        position = position.split("y");
+        position[0]=parseInt(position[0]);
+        position[1]=parseInt(position[1]);
+        longest = longest.split("#")[1];
+        longest = longest.split("x")[1];
+        longest = longest.split("y");
+        longest[0]=parseInt(longest[0]);
+        longest[1]=parseInt(longest[1]);
+        start = start.split("x")[1];
+        start = start.split("y");
+        start[0]=parseInt(start[0]);
+        start[1]=parseInt(start[1]);
+        // console.log("time: "+(time/=1000)+"s");
+        // console.log("array: "+array);
+        // console.log(historyArray);
+        // console.log("length: "+length);
+        console.log("longest count: "+longestCount);
+        console.log("start: "+start);
+        console.log("end: "+longest);
+        console.log("position: "+position);
+        // console.log("maze length: "+historyArray.length);
+        createPlayer();
+        timeInterval = setInterval(function()
+        {
+          timeTaken+=10;
+        }, 10);
+      }
+      // console.log("in interval");
+    }, speed);
+  }
+  else
+  {
+    while (historyArray.length)
     {
       time+=speed;
       var split1 = historyArray[historyArray.length-1].split("x");
@@ -235,41 +307,33 @@ function createWalls()
         $(longest).css("background-color",endColor);
       }
     }
-    else
-    {
-      window.clearInterval(draw);
-      $(position).css("background-color",playerColor);
-      position = position.split("#")[1];
-      position = position.split("x")[1];
-      position = position.split("y");
-      position[0]=parseInt(position[0]);
-      position[1]=parseInt(position[1]);
-      longest = longest.split("#")[1];
-      longest = longest.split("x")[1];
-      longest = longest.split("y");
-      longest[0]=parseInt(longest[0]);
-      longest[1]=parseInt(longest[1]);
-      start = start.split("x")[1];
-      start = start.split("y");
-      start[0]=parseInt(start[0]);
-      start[1]=parseInt(start[1]);
-      // console.log("time: "+(time/=1000)+"s");
-      // console.log("array: "+array);
-      // console.log(historyArray);
-      // console.log("length: "+length);
-      console.log("longest count: "+longestCount);
-      console.log("start: "+start);
-      console.log("end: "+longest);
-      console.log("position: "+position);
-      // console.log("maze length: "+historyArray.length);
-      createPlayer();
-      timeInterval = setInterval(function()
-      {
-        timeTaken+=10;
-      }, 10);
-    }
-    // console.log("in interval");
-  }, speed);
+    window.clearInterval(draw);
+    $(position).css("background-color",playerColor);
+    position = position.split("#")[1];
+    position = position.split("x")[1];
+    position = position.split("y");
+    position[0]=parseInt(position[0]);
+    position[1]=parseInt(position[1]);
+    longest = longest.split("#")[1];
+    longest = longest.split("x")[1];
+    longest = longest.split("y");
+    longest[0]=parseInt(longest[0]);
+    longest[1]=parseInt(longest[1]);
+    start = start.split("x")[1];
+    start = start.split("y");
+    start[0]=parseInt(start[0]);
+    start[1]=parseInt(start[1]);
+    // console.log("time: "+(time/=1000)+"s");
+    // console.log("array: "+array);
+    // console.log(historyArray);
+    // console.log("length: "+length);
+    console.log("longest count: "+longestCount);
+    console.log("start: "+start);
+    console.log("end: "+longest);
+    console.log("position: "+position);
+    // console.log("maze length: "+historyArray.length);
+    createPlayer();
+  }
 }
 function checkDirections(x, y)
 {
