@@ -15,6 +15,8 @@ var speed = 50;
 var watch=true;
 var position;
 var currentPosition;
+var tempPosition1;
+var tempPosition2;
 var moves=0;
 var timeTaken=0;
 var timeInterval;
@@ -518,7 +520,7 @@ function move(possible, x, y)
 }
 function createPlayer()
 {
-  // move player
+  // move player arrow keys
   $(document).keydown(function(e)
   {
     // up
@@ -601,6 +603,43 @@ function createPlayer()
         }
       }
     }
+  });
+  // move player mouse
+  $(".wallS").hover(function()
+  {
+
+  });
+  $(".wallM").hover(function()
+  {
+
+  });
+  $(".wallL").hover(function()
+  {
+    if (tempPosition1)
+    {
+      tempPosition1 = tempPosition1.split("#")[1];
+      tempPosition1 = tempPosition1.split("x")[1];
+      tempPosition1 = tempPosition1.split("y");
+      tempPosition1[0]=parseInt(tempPosition1[0]);
+      tempPosition1[1]=parseInt(tempPosition1[1]);
+      if (array[tempPosition1[0]][tempPosition1[1]] === "x")
+      {
+        tempPosition1=("#x"+tempPosition1[0]+"y"+tempPosition1[1]);
+        $(tempPosition1).css("background-color", mazeColor);
+      }
+    }
+    tempPosition2 = ($(this).attr("id"));
+    tempPosition2 = tempPosition2.split("x")[1];
+    tempPosition2 = tempPosition2.split("y");
+    tempPosition2[0]=parseInt(tempPosition2[0]);
+    tempPosition2[1]=parseInt(tempPosition2[1]);
+    tempPosition1=("#x"+tempPosition2[0]+"y"+tempPosition2[1]);
+    if (array[tempPosition2[0]][tempPosition2[1]] === "x")
+    {
+      // $(tempPosition1).css("background-color",mazeColor);
+      $(tempPosition1).css("background-color", playerColor);
+    }
+    moves++;
   });
 }
 function checkWin()
