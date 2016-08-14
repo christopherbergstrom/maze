@@ -55,7 +55,7 @@ function creatMenu()
     $("#hard").css("border","3px solid #660000");
     difficulty=.04;
     maxWidth=25;
-    speed=20;
+    speed=15;
   });
   $("#medium").click(function()
   {
