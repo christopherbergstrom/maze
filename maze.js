@@ -11,9 +11,10 @@ var longestCount = 0;
 var time = 0;
 var difficulty = .02;
 var maxWidth = 50;
-var speed = 10;
+var speed = 100;
 var watch=true;
 var position;
+var currentPosition;
 var moves=0;
 var timeTaken=0;
 var timeInterval;
@@ -246,6 +247,26 @@ function createWalls()
           $(longest).css("background-color",mazeColor);
           longest = historyArray[historyArray.length-1];
           $(longest).css("background-color",endColor);
+          if (historyArray.length-2)
+          {
+            if (currentPosition)
+            {
+              $(currentPosition).css("background-color",mazeColor);
+            }
+            currentPosition = historyArray[historyArray.length-2];
+            $(currentPosition).css("background-color",playerColor);
+            // currentPosition = historyArray[historyArray.length-1];
+          }
+        }
+        else
+        {
+          if (historyArray.length-2)
+          {
+            currentPosition = historyArray[historyArray.length-2];
+            $(currentPosition).css("background-color",playerColor);
+            currentPosition = historyArray[historyArray.length-1];
+            $(currentPosition).css("background-color",mazeColor);
+          }
         }
       }
       else
