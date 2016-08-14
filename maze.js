@@ -255,7 +255,6 @@ function createWalls()
             }
             currentPosition = historyArray[historyArray.length-2];
             $(currentPosition).css("background-color",playerColor);
-            // currentPosition = historyArray[historyArray.length-1];
           }
         }
         else
