@@ -11,7 +11,7 @@ var longestCount = 0;
 var time = 0;
 var difficulty = .02;
 var maxWidth = 50;
-var speed = 100;
+var speed = 40;
 var watch=true;
 var position;
 var currentPosition;
@@ -56,7 +56,7 @@ function creatMenu()
     $("#hard").css("border","3px solid #660000");
     difficulty=.04;
     maxWidth=25;
-    speed=15;
+    speed=50;
   });
   $("#medium").click(function()
   {
@@ -68,7 +68,7 @@ function creatMenu()
     $("#hard").css("border","3px solid #660000");
     difficulty=.02;
     maxWidth=50;
-    speed=10;
+    speed=50;
   });
   $("#hard").click(function()
   {
@@ -80,7 +80,7 @@ function creatMenu()
     $("#medium").css("border","3px solid #666600");
     difficulty=.01;
     maxWidth=100;
-    speed=5;
+    speed=50;
   });
   $("#theme").change(function()
   {
@@ -260,13 +260,9 @@ function createWalls()
         }
         else
         {
-          if (historyArray.length-2)
-          {
-            currentPosition = historyArray[historyArray.length-2];
-            $(currentPosition).css("background-color",playerColor);
-            currentPosition = historyArray[historyArray.length-1];
-            $(currentPosition).css("background-color",mazeColor);
-          }
+          $(currentPosition).css("background-color",mazeColor);
+          currentPosition = historyArray[historyArray.length-1];
+          $(currentPosition).css("background-color",playerColor);
         }
       }
       else
