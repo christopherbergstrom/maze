@@ -17,6 +17,10 @@ var position;
 var currentPosition;
 var tempPosition1;
 var tempPosition2;
+var up;
+var down;
+var left;
+var right;
 var moves=0;
 var timeTaken=0;
 var timeInterval;
@@ -524,84 +528,92 @@ function createPlayer()
   $(document).keydown(function(e)
   {
     // up
-    if (e.which === 38)
+    if (position[1]-1 >= 0)
     {
-      if (position[1]-1 >= 0)
+      if (position[0] === start[0] && position[1]-1 === start[1])
       {
-        if (position[0] === start[0] && position[1]-1 === start[1])
-        {
-          // cant move here
-        }
-        else if (array[position[0]][position[1]-1] === "x")
-        {
-          // can move here
-          $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
-          position[1]-=1;
-          $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
-          moves++;
-          checkWin();
-        }
+        // cant move here
       }
+      else if (array[position[0]][position[1]-1] === "x")
+      {
+        // can move here
+        up = true;
+      }
+    }
+    if (e.which === 38 && up)
+    {
+      makeFalse()
+      $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
+      position[1]-=1;
+      $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
+      moves++;
+      checkWin();
     }
     // down
-    if (e.which === 40)
+    if (position[1]+1 <= height-1)
     {
-      if (position[1]+1 <= height-1)
+      if (position[0] === start[0] &&position[1]+1 === start[1])
       {
-        if (position[0] === start[0] &&position[1]+1 === start[1])
-        {
-          // cant move here
-        }
-        else if (array[position[0]][position[1]+1] === "x")
-        {
-          // can move here
-          $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
-          position[1]+=1;
-          $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
-          moves++;
-          checkWin();
-        }
+        // cant move here
       }
+      else if (array[position[0]][position[1]+1] === "x")
+      {
+        // can move here
+        down = true;
+      }
+    }
+    if (e.which === 40 && down)
+    {
+      makeFalse()
+      $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
+      position[1]+=1;
+      $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
+      moves++;
+      checkWin();
     }
     // left
-    if (e.which === 37)
+    if (position[0]-1 >= 0)
     {
-      if (position[0]-1 >= 0)
+      if (position[0]-1 === start[0] && position[1] === start[1])
       {
-        if (position[0]-1 === start[0] && position[1] === start[1])
-        {
-          // cant move here
-        }
-        else if (array[position[0]-1][position[1]] === "x")
-        {
-          // can move here
-          $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
-          position[0]-=1;
-          $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
-          moves++;
-          checkWin();
-        }
+        // cant move here
+      }
+      else if (array[position[0]-1][position[1]] === "x")
+      {
+        // can move here
+        left = true;
       }
     }
-    // right
-    if (e.which === 39)
+    if (e.which === 37 && left)
     {
-      if (position[0]+1 <= (maxWidth-1))
+      makeFalse()
+      $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
+      position[0]-=1;
+      $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
+      moves++;
+      checkWin();
+    }
+    // right
+    if (position[0]+1 <= (maxWidth-1))
+    {
+      if (position[0]+1 === start[0] && position[1] === start[1])
       {
-        if (position[0]+1 === start[0] && position[1] === start[1])
-        {
-          // cant move here
-        }
-        else if (array[position[0]+1][position[1]] === "x")
-        {
-          // can move here
-          $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
-          position[0]+=1;
-          $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
-          moves++;
-          checkWin();
-        }
+        // cant move here
       }
+      else if (array[position[0]+1][position[1]] === "x")
+      {
+        // can move here
+        right = true;
+      }
+    }
+    if (e.which === 39 && right)
+    {
+      makeFalse()
+      $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
+      position[0]+=1;
+      $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
+      moves++;
+      checkWin();
     }
   });
   // move player mouse
@@ -642,11 +654,18 @@ function createPlayer()
     moves++;
   });
 }
+function makeFalse()
+{
+  up = false;
+  down = false;
+  left = false;
+  right = false;
+}
 function checkWin()
 {
   if (position[0] === longest[0] && position[1] === longest[1])
   {
-    console.log("win!");
+    // console.log("win!");
     window.clearInterval(timeInterval);
     $(document).off("keydown");
     var whichNoise = Math.floor(Math.random()*2);
