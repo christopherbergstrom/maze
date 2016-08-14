@@ -11,7 +11,7 @@ var longestCount = 0;
 var time = 0;
 var difficulty = .02;
 var maxWidth = 50;
-var speed = 40;
+var speed = 50;
 var watch=true;
 var position;
 var currentPosition;
@@ -621,9 +621,9 @@ function checkWin()
       $("#win2")[0].play();
     }
     $("body").append("<div id='menu'></div>");
-    $("#menu").append("<div id='difficulty'></div>");
-    $("#difficulty").append("<div class='dataLabel'>Time: <span class='data'>"+(timeTaken/1000)+"s<span></div>");
-    $("#difficulty").append("<div class='dataLabel'>Moves:  <span class='data'>"+moves+"<span></div>");
+    $("#menu").append("<div id='endData'></div>");
+    $("#endData").append("<div class='dataLabel'>Time: <span class='data'>"+(timeTaken/1000)+"s<span></div>");
+    $("#endData").append("<div class='dataLabel'>Moves:  <span class='data'>"+moves+"<span></div>");
     $("#menu").append("<button id='play'>play again</button>");
     $("#play").click(function()
     {
