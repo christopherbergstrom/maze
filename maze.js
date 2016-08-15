@@ -22,7 +22,6 @@ var right;
 var moves=0;
 var timeTaken=0;
 var timeInterval;
-var checkInterval;
 var startColor="#00ff00";
 var endColor="#ff0000";
 var playerColor="#2ea1fb";
@@ -569,60 +568,54 @@ function createPlayer()
     }
   });
   // move player mouse
-  $(". wallS .wallM .wallL").hover(function()
+  $(".wallS").hover(mouseMove);
+  $(".wallM").hover(mouseMove);
+  $(".wallL").hover(mouseMove);
+}
+function mouseMove()
+{
+  checkMoveDirections();
+  var tempPosition1 = ($(this).attr("id"));
+  // up
+  if ((("#"+tempPosition1).toString()) == (("#x"+position[0]+"y"+(position[1]-1)).toString()) && up)
   {
-    console.log("mouse moved");
-    checkMoveDirections();
-    var tempPosition1 = ($(this).attr("id"));
-    // up
-    if ((("#"+tempPosition1).toString()) == (("#x"+position[0]+"y"+(position[1]-1)).toString()) && up)
-    {
-      console.log("in up");
-      makeFalse()
-      $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
-      position[1]-=1;
-      $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
-      moves++;
-      checkWin();
-      // checkMoveDirections();
-    }
-    // down
-    if ((("#"+tempPosition1).toString()) == (("#x"+position[0]+"y"+(position[1]+1)).toString()) && down)
-    {
-      console.log("in down");
-      makeFalse()
-      $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
-      position[1]+=1;
-      $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
-      moves++;
-      checkWin();
-      // checkMoveDirections();
-    }
-    // left
-    if ((("#"+tempPosition1).toString()) == (("#x"+(position[0]-1)+"y"+position[1]).toString()) && left)
-    {
-      console.log("in left");
-      makeFalse()
-      $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
-      position[0]-=1;
-      $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
-      moves++;
-      checkWin();
-      // checkMoveDirections();
-    }
-    // right
-    if ((("#"+tempPosition1).toString()) == (("#x"+(position[0]+1)+"y"+position[1]).toString()) && right)
-    {
-      console.log("in right");
-      makeFalse()
-      $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
-      position[0]+=1;
-      $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
-      moves++;
-      checkWin();
-      // checkMoveDirections();
-    }
-  });
+    makeFalse()
+    $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
+    position[1]-=1;
+    $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
+    moves++;
+    checkWin();
+  }
+  // down
+  if ((("#"+tempPosition1).toString()) == (("#x"+position[0]+"y"+(position[1]+1)).toString()) && down)
+  {
+    makeFalse()
+    $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
+    position[1]+=1;
+    $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
+    moves++;
+    checkWin();
+  }
+  // left
+  if ((("#"+tempPosition1).toString()) == (("#x"+(position[0]-1)+"y"+position[1]).toString()) && left)
+  {
+    makeFalse()
+    $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
+    position[0]-=1;
+    $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
+    moves++;
+    checkWin();
+  }
+  // right
+  if ((("#"+tempPosition1).toString()) == (("#x"+(position[0]+1)+"y"+position[1]).toString()) && right)
+  {
+    makeFalse()
+    $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
+    position[0]+=1;
+    $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
+    moves++;
+    checkWin();
+  }
 }
 function makeFalse()
 {
@@ -688,12 +681,14 @@ function checkMoveDirections()
 }
 function checkWin()
 {
-  if (position[0] === longest[0] && position[1] === longest[1])
+  if ((position[0] === longest[0] && position[1] === longest[1]))
   {
     // console.log("win!");
     window.clearInterval(timeInterval);
-    window.clearInterval(checkInterval);
     $(document).off("keydown");
+    $(".wallS").unbind("mouseenter mouseleave");
+    $(".wallM").unbind("mouseenter mouseleave");
+    $(".wallL").unbind("mouseenter mouseleave");
     var whichNoise = Math.floor(Math.random()*2);
     if (whichNoise === 0)
     {
