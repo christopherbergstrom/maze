@@ -12,7 +12,7 @@ var time = 0;
 var difficulty = .02;
 var maxWidth = 50;
 var speed = 50;
-var watch=true;
+var watch = true;
 var position;
 var currentPosition;
 var up;
@@ -31,11 +31,6 @@ var mazeColor="#ffffff";
 $(document).ready(function()
 {
   creatMenu();
-  // createDivs();
-  // createArray();
-  // startEnd();
-  // createWalls();
-  // createPlayer();
 });
 function creatMenu()
 {
@@ -45,7 +40,8 @@ function creatMenu()
   $("#difficulty").append("<button id='medium'>medium</button>");
   $("#difficulty").append("<button id='hard'>hard</button>");
   $("#menu").append("<div id='theme'></div>");
-  $("#theme").append("<select id='select'><option>Classic</option><option>Dark</option><option>Light</option></select>");
+  $("#theme").append("<select id='color'><option>Choose Color</option><option>Classic</option><option>Dark</option><option>Light</option></select>");
+  $("#theme").append("<select id='speed'><option>Choose Speed</option><option>Slow</option><option>Medium</option><option>Fast</option></select>");
   $("#menu").append("<div id='text'>Watch maze create itself?</div>");
   $("#menu").append("<div id='yesNo'></div>");
   $("#yesNo").append("<button id='yes'>yes</button>");
@@ -60,7 +56,7 @@ function creatMenu()
     $("#hard").css("border","3px solid #660000");
     difficulty=.04;
     maxWidth=25;
-    speed=50;
+    // speed=50;
   });
   $("#medium").click(function()
   {
@@ -72,7 +68,7 @@ function creatMenu()
     $("#hard").css("border","3px solid #660000");
     difficulty=.02;
     maxWidth=50;
-    speed=50;
+    // speed=50;
   });
   $("#hard").click(function()
   {
@@ -84,22 +80,43 @@ function creatMenu()
     $("#medium").css("border","3px solid #666600");
     difficulty=.01;
     maxWidth=100;
-    speed=50;
+    // speed=50;
   });
   $("#theme").change(function()
   {
-    var theme = $("#select").val();
-    if (theme === "Classic")
+    var colorSelected = $("#color").val();
+    if (colorSelected === "Choose Color")
     {
       changeTheme("#00ff00", "#ff0000", "#2ea1fb", "#000000", "#ffffff");
     }
-    else if (theme === "Dark")
+    else if (colorSelected === "Classic")
+    {
+      changeTheme("#00ff00", "#ff0000", "#2ea1fb", "#000000", "#ffffff");
+    }
+    else if (colorSelected === "Dark")
     {
       changeTheme("#006400", "#8b0000", "#ffffff", "#000000", "#808080");
     }
-    else if (theme === "Light")
+    else if (colorSelected === "Light")
     {
       changeTheme("#66ff66", "#ff6666", "#000000", "#bfbfbf", "#ffffff");
+    }
+    var speedSelected = $("#speed").val();
+    if (speedSelected === "Choose Speed")
+    {
+      speed = 50;
+    }
+    else if (speedSelected === "Slow")
+    {
+      speed = 100;
+    }
+    else if (speedSelected === "Medium")
+    {
+      speed = 50;
+    }
+    else if (speedSelected === "Fast")
+    {
+      speed = 10;
     }
   });
   $("#yes").click(function()
@@ -522,6 +539,7 @@ function move(possible, x, y)
 }
 function createPlayer()
 {
+  $("#go")[0].play();
   // move player arrow keys
   $(document).keydown(function(e)
   {

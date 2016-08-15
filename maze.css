@@ -117,14 +117,17 @@ select
 #theme
 {
   padding-bottom: 10%;
-  position: relative;
 }
-#select
+#theme select
 {
   display: inline-block;
   margin: 1%;
+  position: relative;
 }
-#select:hover
+#color, #speed
+{
+}
+#color, #speed:hover
 {
   cursor: pointer;
 }
