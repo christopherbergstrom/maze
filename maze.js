@@ -41,8 +41,8 @@ function creatMenu()
   $("#difficulty").append("<button id='medium'>medium</button>");
   $("#difficulty").append("<button id='hard'>hard</button>");
   $("#menu").append("<div id='theme'></div>");
-  $("#theme").append("<select id='color'><option>Choose Color</option><option>Classic</option><option>Dark</option><option>Light</option><option>Cornfield</option><option>Hedge Maze</option><option>Desert</option></select>");
-  $("#theme").append("<select id='speed'><option>Choose Speed</option><option>Slow</option><option>Medium</option><option>Fast</option></select>");
+  $("#theme").append("<select id='color'><option>Color Theme</option><option>Classic</option><option>Dark</option><option>Light</option><option>Cornfield</option><option>Hedge Maze</option><option>Desert</option></select>");
+  $("#theme").append("<select id='speed'><option>Create Speed</option><option>Slow</option><option>Medium</option><option>Fast</option></select>");
   $("#menu").append("<div id='text'>Watch maze create itself?</div>");
   $("#menu").append("<div id='yesNo'></div>");
   $("#yesNo").append("<button id='yes'>yes</button>");
