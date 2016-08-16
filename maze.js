@@ -41,7 +41,7 @@ function creatMenu()
   $("#difficulty").append("<button id='medium'>medium</button>");
   $("#difficulty").append("<button id='hard'>hard</button>");
   $("#menu").append("<div id='theme'></div>");
-  $("#theme").append("<select id='color'><option>Choose Color</option><option>Classic</option><option>Dark</option><option>Light</option><option>Cornfield</option><option>Hedge Maze</option></select>");
+  $("#theme").append("<select id='color'><option>Choose Color</option><option>Classic</option><option>Dark</option><option>Light</option><option>Cornfield</option><option>Hedge Maze</option><option>Desert</option></select>");
   $("#theme").append("<select id='speed'><option>Choose Speed</option><option>Slow</option><option>Medium</option><option>Fast</option></select>");
   $("#menu").append("<div id='text'>Watch maze create itself?</div>");
   $("#menu").append("<div id='yesNo'></div>");
@@ -109,6 +109,10 @@ function creatMenu()
     else if (colorSelected === "Hedge Maze")
     {
       changeTheme("#00ff00", "#ff0000", "#ffffff", "#386406", "#fef7cb");
+    }
+    else if (colorSelected === "Desert")
+    {
+      changeTheme("#00ff00", "#ff0000", "#404040", "#d8a983", "#e7f6fe");
     }
     var speedSelected = $("#speed").val();
     if (speedSelected === "Choose Speed")
@@ -265,19 +269,19 @@ function createDivs()
       var whichColor = Math.floor(Math.random()*4);
       if (whichColor === 0)
       {
-        $(this).css("background-color","#c0b149");
+        $(this).css("background-color","#386406");
       }
       else if (whichColor === 1)
       {
-        $(this).css("background-color","#546c42");
+        $(this).css("background-color","#798722");
       }
       else if (whichColor === 2)
       {
-        $(this).css("background-color","#d3bc76");
+        $(this).css("background-color","#81b43b");
       }
       else if (whichColor === 3)
       {
-        $(this).css("background-color","#132115");
+        $(this).css("background-color","#1f3506");
       }
     });
     $(".wallM").each(function()
@@ -285,19 +289,19 @@ function createDivs()
       var whichColor = Math.floor(Math.random()*4);
       if (whichColor === 0)
       {
-        $(this).css("background-color","#c0b149");
+        $(this).css("background-color","#386406");
       }
       else if (whichColor === 1)
       {
-        $(this).css("background-color","#546c42");
+        $(this).css("background-color","#798722");
       }
       else if (whichColor === 2)
       {
-        $(this).css("background-color","#d3bc76");
+        $(this).css("background-color","#81b43b");
       }
       else if (whichColor === 3)
       {
-        $(this).css("background-color","#132115");
+        $(this).css("background-color","#1f3506");
       }
     });
     $(".wallL").each(function()
@@ -305,19 +309,82 @@ function createDivs()
       var whichColor = Math.floor(Math.random()*4);
       if (whichColor === 0)
       {
-        $(this).css("background-color","#c0b149");
+        $(this).css("background-color","#386406");
       }
       else if (whichColor === 1)
       {
-        $(this).css("background-color","#546c42");
+        $(this).css("background-color","#798722");
       }
       else if (whichColor === 2)
       {
-        $(this).css("background-color","#d3bc76");
+        $(this).css("background-color","#81b43b");
       }
       else if (whichColor === 3)
       {
-        $(this).css("background-color","#132115");
+        $(this).css("background-color","#1f3506");
+      }
+    });
+  }
+  else if (colorSelected === "Desert")
+  {
+    $(".wallS").each(function()
+    {
+      var whichColor = Math.floor(Math.random()*4);
+      if (whichColor === 0)
+      {
+        $(this).css("background-color","#d8a983");
+      }
+      else if (whichColor === 1)
+      {
+        $(this).css("background-color","#f0b479");
+      }
+      else if (whichColor === 2)
+      {
+        $(this).css("background-color","#f2be6c");
+      }
+      else if (whichColor === 3)
+      {
+        $(this).css("background-color","#e49e73");
+      }
+    });
+    $(".wallM").each(function()
+    {
+      var whichColor = Math.floor(Math.random()*4);
+      if (whichColor === 0)
+      {
+        $(this).css("background-color","#d8a983");
+      }
+      else if (whichColor === 1)
+      {
+        $(this).css("background-color","#f0b479");
+      }
+      else if (whichColor === 2)
+      {
+        $(this).css("background-color","#f2be6c");
+      }
+      else if (whichColor === 3)
+      {
+        $(this).css("background-color","#e49e73");
+      }
+    });
+    $(".wallL").each(function()
+    {
+      var whichColor = Math.floor(Math.random()*4);
+      if (whichColor === 0)
+      {
+        $(this).css("background-color","#d8a983");
+      }
+      else if (whichColor === 1)
+      {
+        $(this).css("background-color","#f0b479");
+      }
+      else if (whichColor === 2)
+      {
+        $(this).css("background-color","#f2be6c");
+      }
+      else if (whichColor === 3)
+      {
+        $(this).css("background-color","#e49e73");
       }
     });
   }
