@@ -41,7 +41,7 @@ function creatMenu()
   $("#difficulty").append("<button id='medium'>medium</button>");
   $("#difficulty").append("<button id='hard'>hard</button>");
   $("#menu").append("<div id='theme'></div>");
-  $("#theme").append("<select id='color'><option>Color Theme</option><option>Classic</option><option>Dark</option><option>Light</option><option>Cornfield</option><option>Hedge Maze</option><option>Desert</option></select>");
+  $("#theme").append("<select id='color'><option>Color Theme</option><option>Classic</option><option>Inverse</option><option>Dark</option><option>Light</option><option>Cornfield</option><option>Hedge Maze</option><option>Desert</option></select>");
   $("#theme").append("<select id='speed'><option>Create Speed</option><option>Slow</option><option>Medium</option><option>Fast</option></select>");
   $("#menu").append("<div id='text'>Watch maze create itself?</div>");
   $("#menu").append("<div id='yesNo'></div>");
@@ -93,6 +93,10 @@ function creatMenu()
     else if (colorSelected === "Classic")
     {
       changeTheme("#00ff00", "#ff0000", "#2ea1fb", "#000000", "#ffffff");
+    }
+    else if (colorSelected === "Inverse")
+    {
+      changeTheme("#00ff00", "#ff0000", "#D15E04", "#ffffff", "#000000");
     }
     else if (colorSelected === "Dark")
     {
@@ -199,7 +203,7 @@ function createDivs()
   }
   $("body").css("background-color",backColor);
   $("#container").css("background-color",backColor);
-  if (colorSelected === "Choose Color" || colorSelected === "Classic" || colorSelected === "Dark" || colorSelected === "Light")
+  if (colorSelected === "Choose Color" || colorSelected === "Classic" || colorSelected === "Inverse" || colorSelected === "Dark" || colorSelected === "Light")
   {
     $(".wallS").css("background-color",backColor);
     $(".wallM").css("background-color",backColor);
