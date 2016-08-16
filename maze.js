@@ -596,19 +596,19 @@ function checkDirections(x, y)
       {
         if (x === 0)
         {
-          if (array[x][y-2] === " " && array[x][y-1] === " " && array[x+1][y-1] === " ")
+          if (array[x][y-2] === " " && array[x][y-1] === " " && array[x+1][y-1] === " " && array[x+1][y-2] === " ")
           {
             possible.push("U");
           }
         }
         else if (x === (maxWidth-1))
         {
-          if (array[x][y-2] === " " && array[x][y-1] === " " && array[x-1][y-1] === " ")
+          if (array[x][y-2] === " " && array[x][y-1] === " " && array[x-1][y-1] === " " && array[x-1][y-2] === " ")
           {
             possible.push("U");
           }
         }
-        else if (array[x][y-2] === " " && array[x][y-1] === " " && array[x+1][y-1] === " " && array[x-1][y-1] === " ")
+        else if (array[x][y-2] === " " && array[x][y-1] === " " && array[x+1][y-1] === " " && array[x-1][y-1] === " " && array[x+1][y-2] === " " && array[x-1][y-2] === " ")
         {
           possible.push("U");
         }
@@ -621,19 +621,19 @@ function checkDirections(x, y)
       {
         if (x === 0)
         {
-          if (array[x][y+2] === " " && array[x][y+1] === " " && array[x+1][y+1] === " ")
+          if (array[x][y+2] === " " && array[x][y+1] === " " && array[x+1][y+1] === " " && array[x+1][y+2] === " ")
           {
             possible.push("D");
           }
         }
         else if (x === (maxWidth-1))
         {
-          if (array[x][y+2] === " " && array[x][y+1] === " "&& array[x-1][y+1] === " ")
+          if (array[x][y+2] === " " && array[x][y+1] === " " && array[x-1][y+1] === " " && array[x-1][y+2] === " ")
           {
             possible.push("D");
           }
         }
-        else if (array[x][y+2] === " " && array[x][y+1] === " " && array[x+1][y+1] === " " && array[x-1][y+1] === " ")
+        else if (array[x][y+2] === " " && array[x][y+1] === " " && array[x+1][y+1] === " " && array[x-1][y+1] === " " && array[x+1][y+2] === " " && array[x-1][y+2] === " ")
         {
           possible.push("D");
         }
@@ -646,19 +646,19 @@ function checkDirections(x, y)
       {
         if (y === 0)
         {
-          if (array[x-2][y] === " " && array[x-1][y] === " " && array[x-1][y+1] === " ")
+          if (array[x-2][y] === " " && array[x-1][y] === " " && array[x-1][y+1] === " " && array[x-2][y+1] === " ")
           {
             possible.push("L");
           }
         }
         else if (y === height-1)
         {
-          if (array[x-2][y] === " " && array[x-1][y] === " " && array[x-1][y-1] === " ")
+          if (array[x-2][y] === " " && array[x-1][y] === " " && array[x-1][y-1] === " " && array[x-2][y-1] === " ")
           {
             possible.push("L");
           }
         }
-        else if (array[x-2][y] === " " && array[x-1][y] === " " && array[x-1][y+1] === " " && array[x-1][y-1] === " ")
+        else if (array[x-2][y] === " " && array[x-1][y] === " " && array[x-1][y+1] === " " && array[x-1][y-1] === " " && array[x-2][y+1] === " " && array[x-2][y-1] === " ")
         {
           possible.push("L");
         }
@@ -671,19 +671,19 @@ function checkDirections(x, y)
       {
         if (y === 0)
         {
-          if (array[x+2][y] === " " && array[x+1][y] === " " && array[x+1][y+1] === " ")
+          if (array[x+2][y] === " " && array[x+1][y] === " " && array[x+1][y+1] === " " && array[x+2][y+1] === " ")
           {
             possible.push("R");
           }
         }
         else if (y === height-1)
         {
-          if (array[x+2][y] === " " && array[x+1][y] === " " && array[x+1][y-1] === " ")
+          if (array[x+2][y] === " " && array[x+1][y] === " " && array[x+1][y-1] === " " && array[x+2][y-1] === " ")
           {
             possible.push("R");
           }
         }
-        else if (array[x+2][y] === " " && array[x+1][y] === " " && array[x+1][y+1] === " " && array[x+1][y-1] === " ")
+        else if (array[x+2][y] === " " && array[x+1][y] === " " && array[x+1][y+1] === " " && array[x+1][y-1] === " " && array[x+2][y+1] === " " && array[x+2][y-1] === " ")
         {
           possible.push("R");
         }
