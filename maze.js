@@ -104,11 +104,11 @@ function creatMenu()
     }
     else if (colorSelected === "Cornfield")
     {
-      changeTheme("#00ff00", "#ff0000", "#ffa500", "#c0b149", "#fde9ce");
+      changeTheme("#00ff00", "#ff0000", "#ffa500", "#c0b149", "#fef5e6");
     }
     else if (colorSelected === "Hedge Maze")
     {
-      changeTheme("#00ff00", "#ff0000", "#ffffff", "#386406", "#fef7cb");
+      changeTheme("#00ff00", "#ff0000", "#cccccc", "#386406", "#fef7cb");
     }
     else if (colorSelected === "Desert")
     {
@@ -199,6 +199,12 @@ function createDivs()
   }
   $("body").css("background-color",backColor);
   $("#container").css("background-color",backColor);
+  if (colorSelected === "Choose Color" || colorSelected === "Classic" || colorSelected === "Dark" || colorSelected === "Light")
+  {
+    $(".wallS").css("background-color",backColor);
+    $(".wallM").css("background-color",backColor);
+    $(".wallL").css("background-color",backColor);
+  }
   if (colorSelected === "Cornfield")
   {
     $(".wallS").each(function()
