@@ -27,6 +27,7 @@ var endColor="#ff0000";
 var playerColor="#2ea1fb";
 var backColor="#000000";
 var mazeColor="#ffffff";
+var colorSelected;
 
 $(document).ready(function()
 {
@@ -40,7 +41,7 @@ function creatMenu()
   $("#difficulty").append("<button id='medium'>medium</button>");
   $("#difficulty").append("<button id='hard'>hard</button>");
   $("#menu").append("<div id='theme'></div>");
-  $("#theme").append("<select id='color'><option>Choose Color</option><option>Classic</option><option>Dark</option><option>Light</option></select>");
+  $("#theme").append("<select id='color'><option>Choose Color</option><option>Classic</option><option>Dark</option><option>Light</option><option>Cornfield</option><option>Hedge Maze</option></select>");
   $("#theme").append("<select id='speed'><option>Choose Speed</option><option>Slow</option><option>Medium</option><option>Fast</option></select>");
   $("#menu").append("<div id='text'>Watch maze create itself?</div>");
   $("#menu").append("<div id='yesNo'></div>");
@@ -84,7 +85,7 @@ function creatMenu()
   });
   $("#theme").change(function()
   {
-    var colorSelected = $("#color").val();
+    colorSelected = $("#color").val();
     if (colorSelected === "Choose Color")
     {
       changeTheme("#00ff00", "#ff0000", "#2ea1fb", "#000000", "#ffffff");
@@ -100,6 +101,14 @@ function creatMenu()
     else if (colorSelected === "Light")
     {
       changeTheme("#66ff66", "#ff6666", "#000000", "#bfbfbf", "#ffffff");
+    }
+    else if (colorSelected === "Cornfield")
+    {
+      changeTheme("#00ff00", "#ff0000", "#ffa500", "#c0b149", "#fde9ce");
+    }
+    else if (colorSelected === "Hedge Maze")
+    {
+      changeTheme("#00ff00", "#ff0000", "#ffffff", "#386406", "#fef7cb");
     }
     var speedSelected = $("#speed").val();
     if (speedSelected === "Choose Speed")
@@ -186,9 +195,132 @@ function createDivs()
   }
   $("body").css("background-color",backColor);
   $("#container").css("background-color",backColor);
-  $(".wallS").css("background-color",backColor);
-  $(".wallM").css("background-color",backColor);
-  $(".wallL").css("background-color",backColor);
+  if (colorSelected === "Cornfield")
+  {
+    $(".wallS").each(function()
+    {
+      var whichColor = Math.floor(Math.random()*4);
+      if (whichColor === 0)
+      {
+        $(this).css("background-color","#c0b149");
+      }
+      else if (whichColor === 1)
+      {
+        $(this).css("background-color","#546c42");
+      }
+      else if (whichColor === 2)
+      {
+        $(this).css("background-color","#d3bc76");
+      }
+      else if (whichColor === 3)
+      {
+        $(this).css("background-color","#132115");
+      }
+    });
+    $(".wallM").each(function()
+    {
+      var whichColor = Math.floor(Math.random()*4);
+      if (whichColor === 0)
+      {
+        $(this).css("background-color","#c0b149");
+      }
+      else if (whichColor === 1)
+      {
+        $(this).css("background-color","#546c42");
+      }
+      else if (whichColor === 2)
+      {
+        $(this).css("background-color","#d3bc76");
+      }
+      else if (whichColor === 3)
+      {
+        $(this).css("background-color","#132115");
+      }
+    });
+    $(".wallL").each(function()
+    {
+      var whichColor = Math.floor(Math.random()*4);
+      if (whichColor === 0)
+      {
+        $(this).css("background-color","#c0b149");
+      }
+      else if (whichColor === 1)
+      {
+        $(this).css("background-color","#546c42");
+      }
+      else if (whichColor === 2)
+      {
+        $(this).css("background-color","#d3bc76");
+      }
+      else if (whichColor === 3)
+      {
+        $(this).css("background-color","#132115");
+      }
+    });
+  }
+  else if (colorSelected === "Hedge Maze")
+  {
+    $(".wallS").each(function()
+    {
+      var whichColor = Math.floor(Math.random()*4);
+      if (whichColor === 0)
+      {
+        $(this).css("background-color","#c0b149");
+      }
+      else if (whichColor === 1)
+      {
+        $(this).css("background-color","#546c42");
+      }
+      else if (whichColor === 2)
+      {
+        $(this).css("background-color","#d3bc76");
+      }
+      else if (whichColor === 3)
+      {
+        $(this).css("background-color","#132115");
+      }
+    });
+    $(".wallM").each(function()
+    {
+      var whichColor = Math.floor(Math.random()*4);
+      if (whichColor === 0)
+      {
+        $(this).css("background-color","#c0b149");
+      }
+      else if (whichColor === 1)
+      {
+        $(this).css("background-color","#546c42");
+      }
+      else if (whichColor === 2)
+      {
+        $(this).css("background-color","#d3bc76");
+      }
+      else if (whichColor === 3)
+      {
+        $(this).css("background-color","#132115");
+      }
+    });
+    $(".wallL").each(function()
+    {
+      var whichColor = Math.floor(Math.random()*4);
+      if (whichColor === 0)
+      {
+        $(this).css("background-color","#c0b149");
+      }
+      else if (whichColor === 1)
+      {
+        $(this).css("background-color","#546c42");
+      }
+      else if (whichColor === 2)
+      {
+        $(this).css("background-color","#d3bc76");
+      }
+      else if (whichColor === 3)
+      {
+        $(this).css("background-color","#132115");
+      }
+    });
+  }
   createArray();
 }
 function createArray()
