@@ -28,6 +28,9 @@ var playerColor="#2ea1fb";
 var backColor="#000000";
 var mazeColor="#ffffff";
 var colorSelected;
+var timeVal;
+var movesVal;
+var timeMovesColor;
 
 $(document).ready(function()
 {
@@ -89,34 +92,42 @@ function creatMenu()
     if (colorSelected === "Choose Color")
     {
       changeTheme("#00ff00", "#ff0000", "#2ea1fb", "#000000", "#ffffff");
+      timeMovesColor = "#ffff00";
     }
     else if (colorSelected === "Classic")
     {
       changeTheme("#00ff00", "#ff0000", "#2ea1fb", "#000000", "#ffffff");
+      timeMovesColor = "#ffff00";
     }
     else if (colorSelected === "Inverse")
     {
       changeTheme("#00ff00", "#ff0000", "#D15E04", "#ffffff", "#000000");
+      timeMovesColor = "#0000ff";
     }
     else if (colorSelected === "Dark")
     {
       changeTheme("#006400", "#8b0000", "#ffffff", "#000000", "#808080");
+      timeMovesColor = "#ffff00";
     }
     else if (colorSelected === "Light")
     {
       changeTheme("#66ff66", "#ff6666", "#000000", "#bfbfbf", "#ffffff");
+      timeMovesColor = "#0000ff";
     }
     else if (colorSelected === "Cornfield")
     {
       changeTheme("#00ff00", "#ff0000", "#ffa500", "#c0b149", "#fef5e6");
+      timeMovesColor = "#000000";
     }
     else if (colorSelected === "Hedge Maze")
     {
       changeTheme("#00ff00", "#ff0000", "#cccccc", "#386406", "#fef7cb");
+      timeMovesColor = "#ffff00";
     }
     else if (colorSelected === "Desert")
     {
       changeTheme("#00ff00", "#ff0000", "#404040", "#d8a983", "#e7f6fe");
+      timeMovesColor = "#0000ff";
     }
     var speedSelected = $("#speed").val();
     if (speedSelected === "Choose Speed")
@@ -167,8 +178,13 @@ function createDivs()
 {
   // create divs for maze map
   $("body").append("<div id='container'></div>");
+  $("#container").append("<div id='timeDiv' class='timeMoves'><div>Time</div><div id='time'>0</div></div>");
+  $("#container").append("<div id='movesDiv' class='timeMoves'><div>Moves</div><div id='moves'>0</div></div>");
+  timeVal = $("#time");
+  movesVal = $("#moves");
+  console.log(movesVal.outerHeight());
   var width = window.innerWidth*difficulty;
-  height = Math.floor((window.innerHeight) / width);
+  height = Math.floor(((window.innerHeight - $("#movesDiv").outerHeight()) / width));
   for (var i = 0; i < maxWidth; i++)
   {
     if (difficulty === .04)
@@ -203,6 +219,7 @@ function createDivs()
   }
   $("body").css("background-color",backColor);
   $("#container").css("background-color",backColor);
+  $(".timeMoves").css("color",timeMovesColor);
   if (colorSelected === "Choose Color" || colorSelected === "Classic" || colorSelected === "Inverse" || colorSelected === "Dark" || colorSelected === "Light")
   {
     $(".wallS").css("background-color",backColor);
@@ -418,30 +435,34 @@ function createArray()
 function startEnd()
 {
   var side = Math.floor(Math.random()*4);
+  // top
   if (side === 0)
   {
     var one = "x"+Math.floor(Math.random()*maxWidth);
-    var two = "y"+0;
+    var two = "y"+1;
     start = one+""+two;
     array[one.split("x")[1]][two.split("y")[1]] = "x";
   }
+  // left
   else if (side === 1)
   {
-    var one = "x"+(maxWidth-1);
+    var one = "x"+(maxWidth-2);
     var two = "y"+Math.floor(Math.random()*height);
     start = one+""+two;
     array[one.split("x")[1]][two.split("y")[1]] = "x";
   }
+  // bottom
   else if (side === 2)
   {
     var one = "x"+Math.floor(Math.random()*(maxWidth-1));
-    var two = "y"+(height-1);
+    var two = "y"+(height-2);
     start = one+""+two;
     array[one.split("x")[1]][two.split("y")[1]] = "x";
   }
+  //left
   else if (side === 3)
   {
-    var one = "x"+0
+    var one = "x"+1
     var two = "y"+Math.floor(Math.random()*height);
     start = one+""+two;
     array[one.split("x")[1]][two.split("y")[1]] = "x";
@@ -521,11 +542,16 @@ function createWalls()
         console.log("end: "+longest);
         console.log("position: "+position);
         // console.log("maze length: "+historyArray.length);
-        createPlayer();
-        timeInterval = setInterval(function()
+        $("#countdown")[0].play();
+        setTimeout(function()
         {
-          timeTaken+=10;
-        }, 10);
+          createPlayer();
+          timeInterval = setInterval(function()
+          {
+            timeTaken+=10;
+            timeVal.html(timeTaken/1000);
+          }, 10);
+        }, 3000);
       }
       // console.log("in interval");
     }, speed);
@@ -578,11 +604,16 @@ function createWalls()
     console.log("end: "+longest);
     console.log("position: "+position);
     // console.log("maze length: "+historyArray.length);
-    createPlayer();
-    timeInterval = setInterval(function()
+    $("#countdown")[0].play();
+    setTimeout(function()
     {
-      timeTaken+=10;
-    }, 10);
+      createPlayer();
+      timeInterval = setInterval(function()
+      {
+        timeTaken+=10;
+        timeVal.html(timeTaken/1000);
+      }, 10);
+    }, 3000);
   }
 }
 function checkDirections(x, y)
@@ -748,7 +779,6 @@ function move(possible, x, y)
 }
 function createPlayer()
 {
-  $("#go")[0].play();
   // move player arrow keys
   $(document).keydown(function(e)
   {
@@ -761,6 +791,7 @@ function createPlayer()
       position[1]-=1;
       $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
       moves++;
+      movesVal.html(parseInt((movesVal.html()))+1);
       checkWin();
     }
     // down
@@ -771,6 +802,7 @@ function createPlayer()
       position[1]+=1;
       $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
       moves++;
+      movesVal.html(parseInt((movesVal.html()))+1);
       checkWin();
     }
     // left
@@ -781,6 +813,7 @@ function createPlayer()
       position[0]-=1;
       $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
       moves++;
+      movesVal.html(parseInt((movesVal.html()))+1);
       checkWin();
     }
     // right
@@ -791,6 +824,7 @@ function createPlayer()
       position[0]+=1;
       $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
       moves++;
+      movesVal.html(parseInt((movesVal.html()))+1);
       checkWin();
     }
   });
@@ -811,6 +845,7 @@ function mouseMove()
     position[1]-=1;
     $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
     moves++;
+    movesVal.html(parseInt((movesVal.html()))+1);
     checkWin();
   }
   // down
@@ -821,6 +856,7 @@ function mouseMove()
     position[1]+=1;
     $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
     moves++;
+    movesVal.html(parseInt((movesVal.html()))+1);
     checkWin();
   }
   // left
@@ -831,6 +867,7 @@ function mouseMove()
     position[0]-=1;
     $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
     moves++;
+    movesVal.html(parseInt((movesVal.html()))+1);
     checkWin();
   }
   // right
@@ -841,6 +878,7 @@ function mouseMove()
     position[0]+=1;
     $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
     moves++;
+    movesVal.html(parseInt((movesVal.html()))+1);
     checkWin();
   }
 }
