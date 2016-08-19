@@ -30,7 +30,7 @@ var mazeColor="#ffffff";
 var colorSelected;
 var timeVal;
 var movesVal;
-var timeMovesColor;
+var timeMovesColor="#ffff00";
 
 $(document).ready(function()
 {
@@ -481,6 +481,24 @@ function startEnd()
   historyArray=[start];
   createWalls();
 }
+function countdown()
+{
+  $("#container").append("<div id='startingNumbers'>3</div>");
+  $("#startingNumbers").css("color",timeMovesColor);
+  console.log(timeMovesColor);
+  setTimeout(function()
+  {
+    $("#startingNumbers").html("2");
+  }, 1000);
+  setTimeout(function()
+  {
+    $("#startingNumbers").html("1");
+  }, 2000);
+  setTimeout(function()
+  {
+    $("#startingNumbers").remove();
+  }, 3000);
+}
 function createWalls()
 {
   // actually make the maze
@@ -553,6 +571,7 @@ function createWalls()
         console.log("position: "+position);
         // console.log("maze length: "+historyArray.length);
         $("#countdown")[0].play();
+        countdown();
         setTimeout(function()
         {
           createPlayer();
@@ -615,6 +634,7 @@ function createWalls()
     console.log("position: "+position);
     // console.log("maze length: "+historyArray.length);
     $("#countdown")[0].play();
+    countdown();
     setTimeout(function()
     {
       createPlayer();
