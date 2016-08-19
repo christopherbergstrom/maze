@@ -16,6 +16,7 @@ body
   width: 100%;
   height: 99%;
   background-color: black;
+  text-align: center;
 }
 .colL
 {
@@ -75,6 +76,23 @@ body
   font-weight: bold;
   /*background-color: black;*/
 }
+#arrowDiv
+{
+  color: #ffff00;
+  position: absolute;
+  bottom: 0%;
+  left: 45%;
+  z-index: 10;
+}
+.arrows
+{
+  display: inline-block;
+  font-size: 2em;
+}
+.arrows:hover
+{
+  cursor: pointer;
+}
 #menu
 {
   position: absolute;
@@ -102,15 +120,18 @@ select
 }
 .dataLabel
 {
-  /*display: inline-block;*/
   font-size: 3em;
-  /*background-color: black;*/
-  /*border: 3px solid white;*/
   color: white;
 }
 .data
 {
   color: #ffff00;
+}
+#success
+{
+  font-size: 4em;
+  color: #ffff00;
+  padding-bottom: 5%;
 }
 #endData
 {

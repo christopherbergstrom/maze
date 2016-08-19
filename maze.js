@@ -34,9 +34,9 @@ var timeMovesColor;
 
 $(document).ready(function()
 {
-  creatMenu();
+  createMenu();
 });
-function creatMenu()
+function createMenu()
 {
   $("body").append("<div id='menu'></div>");
   $("#menu").append("<div id='difficulty'></div>");
@@ -174,12 +174,20 @@ function changeTheme(sC, eC, pC, bC, mC)
   backColor = bC;
   mazeColor = mC;
 }
+function createArrows()
+{
+  $("#container").append("<div id='arrowDiv'></div>");
+  $("#arrowDiv").append("<div class='arrows'><div id='up' class='fa fa-chevron-up'></div></div>");
+  $("#arrowDiv").append("<div class='arrows'><div id='left' class='fa fa-chevron-left'></div><div id='right' class='fa fa-chevron-right'></div></div>");
+  $("#arrowDiv").append("<div class='arrows'><div id='down' class='fa fa-chevron-down'></div></div>");
+}
 function createDivs()
 {
   // create divs for maze map
   $("body").append("<div id='container'></div>");
   $("#container").append("<div id='timeDiv' class='timeMoves'><div>Time</div><div id='time'>0</div></div>");
   $("#container").append("<div id='movesDiv' class='timeMoves'><div>Moves</div><div id='moves'>0</div></div>");
+  createArrows();
   timeVal = $("#time");
   movesVal = $("#moves");
   console.log(movesVal.outerHeight());
@@ -832,6 +840,68 @@ function createPlayer()
   $(".wallS").hover(mouseMove);
   $(".wallM").hover(mouseMove);
   $(".wallL").hover(mouseMove);
+  // move player arrows
+  checkMoveDirections();
+  // up
+  $("#up").click(function()
+  {
+    checkMoveDirections();
+    if (up)
+    {
+      makeFalse()
+      $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
+      position[1]-=1;
+      $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
+      moves++;
+      movesVal.html(parseInt((movesVal.html()))+1);
+      checkWin();
+    }
+  });
+  // down
+  $("#down").click(function()
+  {
+    checkMoveDirections();
+    if (down)
+    {
+      makeFalse()
+      $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
+      position[1]+=1;
+      $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
+      moves++;
+      movesVal.html(parseInt((movesVal.html()))+1);
+      checkWin();
+    }
+  });
+  // left
+  $("#left").click(function()
+  {
+    checkMoveDirections();
+    if (left)
+    {
+      makeFalse()
+      $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
+      position[0]-=1;
+      $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
+      moves++;
+      movesVal.html(parseInt((movesVal.html()))+1);
+      checkWin();
+    }
+  });
+  // right
+  $("#right").click(function()
+  {
+    checkMoveDirections();
+    if (right)
+    {
+      makeFalse()
+      $("#x"+position[0]+"y"+position[1]).css("background-color",mazeColor);
+      position[0]+=1;
+      $("#x"+position[0]+"y"+position[1]).css("background-color",playerColor);
+      moves++;
+      movesVal.html(parseInt((movesVal.html()))+1);
+      checkWin();
+    }
+  });
 }
 function mouseMove()
 {
@@ -954,17 +1024,9 @@ function checkWin()
     $(".wallS").unbind("mouseenter mouseleave");
     $(".wallM").unbind("mouseenter mouseleave");
     $(".wallL").unbind("mouseenter mouseleave");
-    var whichNoise = Math.floor(Math.random()*2);
-    if (whichNoise === 0)
-    {
-      $("#win1")[0].play();
-    }
-    else if (whichNoise === 1)
-    {
-      $("#win2")[0].play();
-    }
     $("body").append("<div id='menu'></div>");
     $("#menu").append("<div id='endData'></div>");
+    $("#endData").append("<div id='success'>Success!</div>");
     $("#endData").append("<div class='dataLabel'>Time: <span class='data'>"+(timeTaken/1000)+"s<span></div>");
     $("#endData").append("<div class='dataLabel'>Moves:  <span class='data'>"+moves+"<span></div>");
     $("#menu").append("<button id='play'>play again</button>");
