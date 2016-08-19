@@ -62,12 +62,14 @@ body
   position: absolute;
   bottom: 0%;
   left: 1%;
+  text-align: left;
 }
 #movesDiv
 {
   position: absolute;
   bottom: 0%;
   right: 2%;
+  text-align: left;
 }
 .timeMoves
 {
@@ -87,11 +89,19 @@ body
 .arrows
 {
   display: inline-block;
-  font-size: 2em;
+  font-size: 3em;
 }
 .arrows:hover
 {
   cursor: pointer;
+}
+#up
+{
+  display: block;
+}
+#down
+{
+  display: block;
 }
 #menu
 {
@@ -174,6 +184,12 @@ select
 #text
 {
   font-size: 2em;
+  color: white;
+}
+#instructions
+{
+  padding-top: 5%;
+  font-size: 1.5em;
   color: white;
 }
 #yesNo

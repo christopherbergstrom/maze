@@ -50,6 +50,7 @@ function createMenu()
   $("#menu").append("<div id='yesNo'></div>");
   $("#yesNo").append("<button id='yes'>yes</button>");
   $("#yesNo").append("<button id='no'>no</button>");
+  $("#menu").append("<div id='instructions'>Use the mouse, arrow keys, or arrow buttons to move the colored square from the green square to the red square.</div>");
   $("#easy").click(function()
   {
     $(this).css("color","#00ff00");
@@ -177,9 +178,9 @@ function changeTheme(sC, eC, pC, bC, mC)
 function createArrows()
 {
   $("#container").append("<div id='arrowDiv'></div>");
-  $("#arrowDiv").append("<div class='arrows'><div id='up' class='fa fa-chevron-up'></div></div>");
-  $("#arrowDiv").append("<div class='arrows'><div id='left' class='fa fa-chevron-left'></div><div id='right' class='fa fa-chevron-right'></div></div>");
-  $("#arrowDiv").append("<div class='arrows'><div id='down' class='fa fa-chevron-down'></div></div>");
+  $("#arrowDiv").append("<div class='arrows'><div id='left' class='fa fa-arrow-circle-left'></div></div>");
+  $("#arrowDiv").append("<div class='arrows'><div id='up' class='fa fa-arrow-circle-up'></div><div id='down' class='fa fa-arrow-circle-down'></div></div>");
+  $("#arrowDiv").append("<div class='arrows'><div id='right' class='fa fa-arrow-circle-right'></div></div>");
 }
 function createDivs()
 {
@@ -192,7 +193,7 @@ function createDivs()
   movesVal = $("#moves");
   console.log(movesVal.outerHeight());
   var width = window.innerWidth*difficulty;
-  height = Math.floor(((window.innerHeight - $("#movesDiv").outerHeight()) / width));
+  height = Math.floor(((window.innerHeight - $("#arrowDiv").outerHeight()) / width));
   for (var i = 0; i < maxWidth; i++)
   {
     if (difficulty === .04)
@@ -228,6 +229,7 @@ function createDivs()
   $("body").css("background-color",backColor);
   $("#container").css("background-color",backColor);
   $(".timeMoves").css("color",timeMovesColor);
+  $(".arrows").css("color",timeMovesColor);
   if (colorSelected === "Choose Color" || colorSelected === "Classic" || colorSelected === "Inverse" || colorSelected === "Dark" || colorSelected === "Light")
   {
     $(".wallS").css("background-color",backColor);
