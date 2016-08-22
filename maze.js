@@ -1046,6 +1046,10 @@ function checkWin()
     $(".wallS").unbind("mouseenter mouseleave");
     $(".wallM").unbind("mouseenter mouseleave");
     $(".wallL").unbind("mouseenter mouseleave");
+    $("#up").unbind("click");
+    $("#down").unbind("click");
+    $("#left").unbind("click");
+    $("#right").unbind("click");
     $("body").append("<div id='menu'></div>");
     $("#menu").append("<div id='endData'></div>");
     $("#endData").append("<div id='success'>Success!</div>");
