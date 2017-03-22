@@ -50,7 +50,7 @@ function createMenu()
   $("#menu").append("<div id='yesNo'></div>");
   $("#yesNo").append("<button id='yes'>yes</button>");
   $("#yesNo").append("<button id='no'>no</button>");
-  $("#menu").append("<div id='instructions'>Use the mouse, arrow keys, or arrow buttons to move the colored square from the green square to the red square.</div>");
+  $("#menu").append("<div id='instructions'>Use the mouse or arrow keys to move the colored square from the green square to the red square.</div>");
   $("#easy").click(function()
   {
     $(this).css("color","#00ff00");
