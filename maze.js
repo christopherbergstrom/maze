@@ -9,7 +9,7 @@ var lastLongest;
 var longest;
 var longestCount = 0;
 var time = 0;
-var difficulty = .02;
+var difficulty = 0.02;
 var maxWidth = 50;
 var speed = 50;
 var watch = true;
@@ -59,7 +59,7 @@ function createMenu()
     $("#medium").css("border","3px solid #666600");
     $("#hard").css("color","#660000");
     $("#hard").css("border","3px solid #660000");
-    difficulty=.04;
+    difficulty=0.04;
     maxWidth=25;
     // speed=50;
   });
@@ -71,7 +71,7 @@ function createMenu()
     $("#easy").css("border","3px solid #006600");
     $("#hard").css("color","#660000");
     $("#hard").css("border","3px solid #660000");
-    difficulty=.02;
+    difficulty=0.02;
     maxWidth=50;
     // speed=50;
   });
@@ -83,7 +83,7 @@ function createMenu()
     $("#easy").css("border","3px solid #006600");
     $("#medium").css("color","#666600");
     $("#medium").css("border","3px solid #666600");
-    difficulty=.01;
+    difficulty=0.01;
     maxWidth=100;
     // speed=50;
   });
@@ -513,7 +513,7 @@ function createWalls()
         time+=speed;
         var split1 = historyArray[historyArray.length-1].split("x");
         var split2 = split1[1].split("y");
-        checkDirections(parseInt(split2[0]), parseInt(split2[1]));
+        var test = checkDirections(parseInt(split2[0]), parseInt(split2[1]));
         if (first)
         {
           first=false;
@@ -521,6 +521,7 @@ function createWalls()
           position = historyArray[historyArray.length-1];
           $(longest).css("background-color",endColor);
         }
+        // console.log(test);
         if (historyArray.length >= longestCount)
         {
           longestCount = historyArray.length;
@@ -542,6 +543,53 @@ function createWalls()
           $(currentPosition).css("background-color",mazeColor);
           currentPosition = historyArray[historyArray.length-1];
           $(currentPosition).css("background-color",playerColor);
+        }
+        for (var i=0; i<4; i++)
+        {
+          var split1 = historyArray[historyArray.length-1].split("x");
+          var split2 = split1[1].split("y");
+          if (test === "U")
+          {
+            if (checkUp(parseInt(split2[0]), parseInt(split2[1])))
+              moveUp(parseInt(split2[0]), parseInt(split2[1]));
+          }
+          else if (test === "D")
+          {
+            if (checkDown(parseInt(split2[0]), parseInt(split2[1])))
+              moveDown(parseInt(split2[0]), parseInt(split2[1]));
+          }
+          else if (test === "L")
+          {
+            if (checkLeft(parseInt(split2[0]), parseInt(split2[1])))
+              moveLeft(parseInt(split2[0]), parseInt(split2[1]));
+          }
+          else if (test === "R")
+          {
+            if (checkRight(parseInt(split2[0]), parseInt(split2[1])))
+              moveRight(parseInt(split2[0]), parseInt(split2[1]));
+          }
+          if (historyArray.length >= longestCount)
+          {
+            longestCount = historyArray.length;
+            $(longest).css("background-color",mazeColor);
+            longest = historyArray[historyArray.length-1];
+            $(longest).css("background-color",endColor);
+            if (historyArray.length-2)
+            {
+              if (currentPosition)
+              {
+                $(currentPosition).css("background-color",mazeColor);
+              }
+              currentPosition = historyArray[historyArray.length-2];
+              $(currentPosition).css("background-color",playerColor);
+            }
+          }
+          else
+          {
+            $(currentPosition).css("background-color",mazeColor);
+            currentPosition = historyArray[historyArray.length-1];
+            $(currentPosition).css("background-color",playerColor);
+          }
         }
       }
       else
@@ -571,7 +619,8 @@ function createWalls()
         console.log("end: "+longest);
         console.log("position: "+position);
         // console.log("maze length: "+historyArray.length);
-        $("#countdown")[0].play();
+        // plays countdown sound
+        // $("#countdown")[0].play();
         countdown();
         setTimeout(function()
         {
@@ -634,7 +683,8 @@ function createWalls()
     console.log("end: "+longest);
     console.log("position: "+position);
     // console.log("maze length: "+historyArray.length);
-    $("#countdown")[0].play();
+    // plays countdown sound
+    // $("#countdown")[0].play();
     countdown();
     setTimeout(function()
     {
@@ -658,111 +708,131 @@ function checkDirections(x, y)
     // check up
     if (i === 0)
     {
-      if (y-2 >= 0)
-      {
-        if (x === 0)
-        {
-          if (array[x][y-2] === " " && array[x][y-1] === " " && array[x+1][y-1] === " " && array[x+1][y-2] === " ")
-          {
-            possible.push("U");
-          }
-        }
-        else if (x === (maxWidth-1))
-        {
-          if (array[x][y-2] === " " && array[x][y-1] === " " && array[x-1][y-1] === " " && array[x-1][y-2] === " ")
-          {
-            possible.push("U");
-          }
-        }
-        else if (array[x][y-2] === " " && array[x][y-1] === " " && array[x+1][y-1] === " " && array[x-1][y-1] === " " && array[x+1][y-2] === " " && array[x-1][y-2] === " ")
-        {
-          possible.push("U");
-        }
-      }
+      if (checkUp(x,y))
+        possible.push("U");
     }
     // check down
     if (i === 1)
     {
-      if (y+2 <= height-1)
-      {
-        if (x === 0)
-        {
-          if (array[x][y+2] === " " && array[x][y+1] === " " && array[x+1][y+1] === " " && array[x+1][y+2] === " ")
-          {
-            possible.push("D");
-          }
-        }
-        else if (x === (maxWidth-1))
-        {
-          if (array[x][y+2] === " " && array[x][y+1] === " " && array[x-1][y+1] === " " && array[x-1][y+2] === " ")
-          {
-            possible.push("D");
-          }
-        }
-        else if (array[x][y+2] === " " && array[x][y+1] === " " && array[x+1][y+1] === " " && array[x-1][y+1] === " " && array[x+1][y+2] === " " && array[x-1][y+2] === " ")
-        {
-          possible.push("D");
-        }
-      }
+      if (checkDown(x,y))
+        possible.push("D");
     }
     // check left
     if (i === 2)
     {
-      if (x-2 >= 0)
-      {
-        if (y === 0)
-        {
-          if (array[x-2][y] === " " && array[x-1][y] === " " && array[x-1][y+1] === " " && array[x-2][y+1] === " ")
-          {
-            possible.push("L");
-          }
-        }
-        else if (y === height-1)
-        {
-          if (array[x-2][y] === " " && array[x-1][y] === " " && array[x-1][y-1] === " " && array[x-2][y-1] === " ")
-          {
-            possible.push("L");
-          }
-        }
-        else if (array[x-2][y] === " " && array[x-1][y] === " " && array[x-1][y+1] === " " && array[x-1][y-1] === " " && array[x-2][y+1] === " " && array[x-2][y-1] === " ")
-        {
-          possible.push("L");
-        }
-      }
+      if (checkLeft(x,y))
+        possible.push("L");
     }
     // check right
     if (i === 3)
     {
-      if (x+2 <= (maxWidth-1))
-      {
-        if (y === 0)
-        {
-          if (array[x+2][y] === " " && array[x+1][y] === " " && array[x+1][y+1] === " " && array[x+2][y+1] === " ")
-          {
-            possible.push("R");
-          }
-        }
-        else if (y === height-1)
-        {
-          if (array[x+2][y] === " " && array[x+1][y] === " " && array[x+1][y-1] === " " && array[x+2][y-1] === " ")
-          {
-            possible.push("R");
-          }
-        }
-        else if (array[x+2][y] === " " && array[x+1][y] === " " && array[x+1][y+1] === " " && array[x+1][y-1] === " " && array[x+2][y+1] === " " && array[x+2][y-1] === " ")
-        {
-          possible.push("R");
-        }
-      }
+      if (checkRight(x,y))
+        possible.push("R");
     }
   }
   if (possible.length)
   {
-    move(possible, x, y);
+    return move(possible, x, y);
   }
   else
   {
     historyArray.pop();
+  }
+}
+function checkUp(x, y)
+{
+  if (y-2 >= 0)
+  {
+    if (x === 0)
+    {
+      if (array[x][y-2] === " " && array[x][y-1] === " " && array[x+1][y-1] === " " && array[x+1][y-2] === " ")
+      {
+        return true;
+      }
+    }
+    else if (x === (maxWidth-1))
+    {
+      if (array[x][y-2] === " " && array[x][y-1] === " " && array[x-1][y-1] === " " && array[x-1][y-2] === " ")
+      {
+        return true;
+      }
+    }
+    else if (array[x][y-2] === " " && array[x][y-1] === " " && array[x+1][y-1] === " " && array[x-1][y-1] === " " && array[x+1][y-2] === " " && array[x-1][y-2] === " ")
+    {
+      return true;
+    }
+  }
+}
+function checkDown(x, y)
+{
+  if (y+2 <= height-1)
+  {
+    if (x === 0)
+    {
+      if (array[x][y+2] === " " && array[x][y+1] === " " && array[x+1][y+1] === " " && array[x+1][y+2] === " ")
+      {
+        return true;
+      }
+    }
+    else if (x === (maxWidth-1))
+    {
+      if (array[x][y+2] === " " && array[x][y+1] === " " && array[x-1][y+1] === " " && array[x-1][y+2] === " ")
+      {
+        return true;
+      }
+    }
+    else if (array[x][y+2] === " " && array[x][y+1] === " " && array[x+1][y+1] === " " && array[x-1][y+1] === " " && array[x+1][y+2] === " " && array[x-1][y+2] === " ")
+    {
+      return true;
+    }
+  }
+}
+function checkLeft(x, y)
+{
+  if (x-2 >= 0)
+  {
+    if (y === 0)
+    {
+      if (array[x-2][y] === " " && array[x-1][y] === " " && array[x-1][y+1] === " " && array[x-2][y+1] === " ")
+      {
+        return true;
+      }
+    }
+    else if (y === height-1)
+    {
+      if (array[x-2][y] === " " && array[x-1][y] === " " && array[x-1][y-1] === " " && array[x-2][y-1] === " ")
+      {
+        return true;
+      }
+    }
+    else if (array[x-2][y] === " " && array[x-1][y] === " " && array[x-1][y+1] === " " && array[x-1][y-1] === " " && array[x-2][y+1] === " " && array[x-2][y-1] === " ")
+    {
+      return true;
+    }
+  }
+}
+function checkRight(x, y)
+{
+  if (x+2 <= (maxWidth-1))
+  {
+    if (y === 0)
+    {
+      if (array[x+2][y] === " " && array[x+1][y] === " " && array[x+1][y+1] === " " && array[x+2][y+1] === " ")
+      {
+        return true;
+      }
+    }
+    else if (y === height-1)
+    {
+      if (array[x+2][y] === " " && array[x+1][y] === " " && array[x+1][y-1] === " " && array[x+2][y-1] === " ")
+      {
+        return true;
+      }
+    }
+    else if (array[x+2][y] === " " && array[x+1][y] === " " && array[x+1][y+1] === " " && array[x+1][y-1] === " " && array[x+2][y+1] === " " && array[x+2][y-1] === " ")
+    {
+      return true;
+    }
   }
 }
 function move(possible, x, y)
@@ -774,39 +844,59 @@ function move(possible, x, y)
   {
     // console.log("x: "+x);
     // console.log("y: "+y);
-    array[x][y-1] = "x";
-    $("#x"+x+"y"+(y-1)).css("background-color", mazeColor);
-    historyArray.push("#x"+x+"y"+(y-1));
+    moveUp(x,y);
+    return "U";
   }
   // move down
   else if (possible[whichMove] === "D")
   {
     // console.log("x: "+x);
     // console.log("y: "+y);
-    array[x][y+1] = "x";
-    $("#x"+x+"y"+(y+1)).css("background-color", mazeColor);
-    historyArray.push("#x"+x+"y"+(y+1));
+    moveDown(x,y);
+    return "D";
   }
   // move left
   else if (possible[whichMove] === "L")
   {
     // console.log("x: "+x);
     // console.log("y: "+y);
-    array[x-1][y] = "x";
-    $("#x"+(x-1)+"y"+y).css("background-color", mazeColor);
-    historyArray.push("#x"+(x-1)+"y"+y);
+    moveLeft(x,y);
+    return "L";
   }
   // move right
   else if (possible[whichMove] === "R")
   {
     // console.log("x: "+x);
     // console.log("y: "+y);
-    array[x+1][y] = "x";
-    $("#x"+(x+1)+"y"+y).css("background-color", mazeColor);
-    historyArray.push("#x"+(x+1)+"y"+y);
+    moveRight(x,y);
+    return "R";
   }
   // reset possible moves
-  possible=[];
+  // possible=[];
+}
+function moveUp(x,y)
+{
+  array[x][y-1] = "x";
+  $("#x"+x+"y"+(y-1)).css("background-color", mazeColor);
+  historyArray.push("#x"+x+"y"+(y-1));
+}
+function moveDown(x,y)
+{
+  array[x][y+1] = "x";
+  $("#x"+x+"y"+(y+1)).css("background-color", mazeColor);
+  historyArray.push("#x"+x+"y"+(y+1));
+}
+function moveLeft(x,y)
+{
+  array[x-1][y] = "x";
+  $("#x"+(x-1)+"y"+y).css("background-color", mazeColor);
+  historyArray.push("#x"+(x-1)+"y"+y);
+}
+function moveRight(x,y)
+{
+  array[x+1][y] = "x";
+  $("#x"+(x+1)+"y"+y).css("background-color", mazeColor);
+  historyArray.push("#x"+(x+1)+"y"+y);
 }
 function createPlayer()
 {
