@@ -32,6 +32,7 @@ var timeVal;
 var movesVal;
 var timeMovesColor="#ffff00";
 var directionAmount = 4;
+var endless = false;
 // 0 = 1 by 1
 // 1 = 2 by 2
 // 2 = 3 by 3
@@ -56,6 +57,7 @@ function createMenu()
   $("#menu").append("<div id='yesNo'></div>");
   $("#yesNo").append("<button id='yes'>yes</button>");
   $("#yesNo").append("<button id='no'>no</button>");
+  $("#yesNo").append("<button id='endless'>endless</button>");
   $("#menu").append("<div id='instructions'>Use the mouse or arrow keys to move the colored square from the green square to the red square.</div>");
   $("#easy").click(function()
   {
@@ -191,6 +193,11 @@ function createMenu()
   {
     start(false)
   });
+  $("#endless").click(function()
+  {
+    endless = true;
+    start(true);
+  });
 }
 function start(which)
 {
@@ -221,15 +228,23 @@ function createDivs()
 {
   // create divs for maze map
   $("body").append("<div id='container'></div>");
-  $("#container").append("<div id='timeDiv' class='timeMoves'><div>Time</div><div id='time'>0</div></div>");
-  $("#container").append("<div id='movesDiv' class='timeMoves'><div>Moves</div><div id='moves'>0</div></div>");
-  // createArrows();
-  timeVal = $("#time");
-  movesVal = $("#moves");
-  console.log(movesVal.outerHeight());
-  var width = window.innerWidth*difficulty;
-  height = Math.floor(((window.innerHeight - $("#timeDiv").outerHeight()) / width));
+  if (endless)
+  {
+    var width = window.innerWidth*difficulty;
+    height = Math.floor((window.innerHeight/width));
+  }
+  else
+  {
+    $("#container").append("<div id='timeDiv' class='timeMoves'><div>Time</div><div id='time'>0</div></div>");
+    $("#container").append("<div id='movesDiv' class='timeMoves'><div>Moves</div><div id='moves'>0</div></div>");
+    // createArrows();
+    timeVal = $("#time");
+    movesVal = $("#moves");
+    console.log(movesVal.outerHeight());
+    var width = window.innerWidth*difficulty;
+    height = Math.floor(((window.innerHeight - $("#timeDiv").outerHeight()) / width));
   // height = Math.floor(((window.innerHeight - $("#arrowDiv").outerHeight()) / width));
+  }
   for (var i = 0; i < maxWidth; i++)
   {
     if (difficulty === .04)
@@ -629,6 +644,16 @@ function createWalls()
             }
           }
         }
+      }
+      else if(endless)
+      {
+        // do this or it will keep getting faster each time and will eventually crash browser
+        window.clearInterval(draw);
+        // clear array
+        array=[];
+        // reset background color on everything
+        $("#container > div > div").css("background-color", backColor);
+        createArray();
       }
       else
       {
