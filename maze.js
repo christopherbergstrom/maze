@@ -31,6 +31,11 @@ var colorSelected;
 var timeVal;
 var movesVal;
 var timeMovesColor="#ffff00";
+var directionAmount = 4;
+// 0 = 1 by 1
+// 1 = 2 by 2
+// 2 = 3 by 3
+// ect
 
 $(document).ready(function()
 {
@@ -43,9 +48,10 @@ function createMenu()
   $("#difficulty").append("<button id='easy'>easy</button>");
   $("#difficulty").append("<button id='medium'>medium</button>");
   $("#difficulty").append("<button id='hard'>hard</button>");
-  $("#menu").append("<div id='theme'></div>");
-  $("#theme").append("<select id='color'><option>Color Theme</option><option>Classic</option><option>Inverse</option><option>Dark</option><option>Light</option><option>Cornfield</option><option>Hedge Maze</option><option>Desert</option></select>");
-  $("#theme").append("<select id='speed'><option>Create Speed</option><option>Slow</option><option>Medium</option><option>Fast</option></select>");
+  $("#menu").append("<div id='dropDowns'></div>");
+  $("#dropDowns").append("<select id='color'><option>Color Theme</option><option>Classic</option><option>Inverse</option><option>Dark</option><option>Light</option><option>Cornfield</option><option>Hedge Maze</option><option>Desert</option></select>");
+  $("#dropDowns").append("<select id='speed'><option>Create Speed</option><option>Slow</option><option>Medium</option><option>Fast</option></select>");
+  $("#dropDowns").append("<select id='build'><option>Build Blocks<option>0</option></option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>");
   $("#menu").append("<div id='text'>Watch maze create itself?</div>");
   $("#menu").append("<div id='yesNo'></div>");
   $("#yesNo").append("<button id='yes'>yes</button>");
@@ -87,7 +93,7 @@ function createMenu()
     maxWidth=100;
     // speed=50;
   });
-  $("#theme").change(function()
+  $("#dropDowns").change(function()
   {
     colorSelected = $("#color").val();
     if (colorSelected === "Choose Color")
@@ -146,6 +152,35 @@ function createMenu()
     else if (speedSelected === "Fast")
     {
       speed = 10;
+    }
+    var directionAmountSelected = $("#build").val();
+    if (directionAmountSelected === "Build Blocks")
+    {
+      directionAmount = 3;
+    }
+    else if (directionAmountSelected === "0")
+    {
+      directionAmount = 0;
+    }
+    else if (directionAmountSelected === "1")
+    {
+      directionAmount = 1;
+    }
+    else if (directionAmountSelected === "2")
+    {
+      directionAmount = 2;
+    }
+    else if (directionAmountSelected === "3")
+    {
+      directionAmount = 3;
+    }
+    else if (directionAmountSelected === "4")
+    {
+      directionAmount = 4;
+    }
+    else if (directionAmountSelected === "5")
+    {
+      directionAmount = 5;
     }
   });
   $("#yes").click(function()
@@ -513,7 +548,7 @@ function createWalls()
         time+=speed;
         var split1 = historyArray[historyArray.length-1].split("x");
         var split2 = split1[1].split("y");
-        var test = checkDirections(parseInt(split2[0]), parseInt(split2[1]));
+        var direction = checkDirections(parseInt(split2[0]), parseInt(split2[1]));
         if (first)
         {
           first=false;
@@ -521,74 +556,77 @@ function createWalls()
           position = historyArray[historyArray.length-1];
           $(longest).css("background-color",endColor);
         }
-        // console.log(test);
-        if (historyArray.length >= longestCount)
+        // this for loop defines how many bocks maze will build at once if space is available
+        for (var i=0; i<directionAmount; i++)
         {
-          longestCount = historyArray.length;
-          $(longest).css("background-color",mazeColor);
-          longest = historyArray[historyArray.length-1];
-          $(longest).css("background-color",endColor);
-          if (historyArray.length-2)
+          if (historyArray.length)
           {
-            if (currentPosition)
+            if (historyArray.length >= longestCount)
+            {
+              longestCount = historyArray.length;
+              $(longest).css("background-color",mazeColor);
+              longest = historyArray[historyArray.length-1];
+              $(longest).css("background-color",endColor);
+              if (historyArray.length-2)
+              {
+                if (currentPosition)
+                {
+                  $(currentPosition).css("background-color",mazeColor);
+                }
+                currentPosition = historyArray[historyArray.length-2];
+                $(currentPosition).css("background-color",playerColor);
+              }
+            }
+            else
             {
               $(currentPosition).css("background-color",mazeColor);
-            }
-            currentPosition = historyArray[historyArray.length-2];
-            $(currentPosition).css("background-color",playerColor);
-          }
-        }
-        else
-        {
-          $(currentPosition).css("background-color",mazeColor);
-          currentPosition = historyArray[historyArray.length-1];
-          $(currentPosition).css("background-color",playerColor);
-        }
-        for (var i=0; i<4; i++)
-        {
-          var split1 = historyArray[historyArray.length-1].split("x");
-          var split2 = split1[1].split("y");
-          if (test === "U")
-          {
-            if (checkUp(parseInt(split2[0]), parseInt(split2[1])))
-              moveUp(parseInt(split2[0]), parseInt(split2[1]));
-          }
-          else if (test === "D")
-          {
-            if (checkDown(parseInt(split2[0]), parseInt(split2[1])))
-              moveDown(parseInt(split2[0]), parseInt(split2[1]));
-          }
-          else if (test === "L")
-          {
-            if (checkLeft(parseInt(split2[0]), parseInt(split2[1])))
-              moveLeft(parseInt(split2[0]), parseInt(split2[1]));
-          }
-          else if (test === "R")
-          {
-            if (checkRight(parseInt(split2[0]), parseInt(split2[1])))
-              moveRight(parseInt(split2[0]), parseInt(split2[1]));
-          }
-          if (historyArray.length >= longestCount)
-          {
-            longestCount = historyArray.length;
-            $(longest).css("background-color",mazeColor);
-            longest = historyArray[historyArray.length-1];
-            $(longest).css("background-color",endColor);
-            if (historyArray.length-2)
-            {
-              if (currentPosition)
-              {
-                $(currentPosition).css("background-color",mazeColor);
-              }
-              currentPosition = historyArray[historyArray.length-2];
+              currentPosition = historyArray[historyArray.length-1];
               $(currentPosition).css("background-color",playerColor);
             }
-          }
-          else
-          {
-            $(currentPosition).css("background-color",mazeColor);
-            currentPosition = historyArray[historyArray.length-1];
-            $(currentPosition).css("background-color",playerColor);
+            var split1 = historyArray[historyArray.length-1].split("x");
+            var split2 = split1[1].split("y");
+            if (direction === "U")
+            {
+              if (checkUp(parseInt(split2[0]), parseInt(split2[1])))
+                moveUp(parseInt(split2[0]), parseInt(split2[1]));
+            }
+            else if (direction === "D")
+            {
+              if (checkDown(parseInt(split2[0]), parseInt(split2[1])))
+                moveDown(parseInt(split2[0]), parseInt(split2[1]));
+            }
+            else if (direction === "L")
+            {
+              if (checkLeft(parseInt(split2[0]), parseInt(split2[1])))
+                moveLeft(parseInt(split2[0]), parseInt(split2[1]));
+            }
+            else if (direction === "R")
+            {
+              if (checkRight(parseInt(split2[0]), parseInt(split2[1])))
+                moveRight(parseInt(split2[0]), parseInt(split2[1]));
+            }
+            if (historyArray.length >= longestCount)
+            {
+              longestCount = historyArray.length;
+              $(longest).css("background-color",mazeColor);
+              longest = historyArray[historyArray.length-1];
+              $(longest).css("background-color",endColor);
+              if (historyArray.length-2)
+              {
+                if (currentPosition)
+                {
+                  $(currentPosition).css("background-color",mazeColor);
+                }
+                currentPosition = historyArray[historyArray.length-2];
+                $(currentPosition).css("background-color",playerColor);
+              }
+            }
+            else
+            {
+              $(currentPosition).css("background-color",mazeColor);
+              currentPosition = historyArray[historyArray.length-1];
+              $(currentPosition).css("background-color",playerColor);
+            }
           }
         }
       }
@@ -642,7 +680,7 @@ function createWalls()
       time+=speed;
       var split1 = historyArray[historyArray.length-1].split("x");
       var split2 = split1[1].split("y");
-      checkDirections(parseInt(split2[0]), parseInt(split2[1]));
+      var direction = checkDirections(parseInt(split2[0]), parseInt(split2[1]));
       if (first)
       {
         first=false;
@@ -650,12 +688,47 @@ function createWalls()
         position = historyArray[historyArray.length-1];
         $(longest).css("background-color",endColor);
       }
-      if (historyArray.length >= longestCount)
+      for (var i=0; i<directionAmount; i++)
       {
-        longestCount = historyArray.length;
-        $(longest).css("background-color",mazeColor);
-        longest = historyArray[historyArray.length-1];
-        $(longest).css("background-color",endColor);
+        if (historyArray.length)
+        {
+          if (historyArray.length >= longestCount)
+          {
+            longestCount = historyArray.length;
+            $(longest).css("background-color",mazeColor);
+            longest = historyArray[historyArray.length-1];
+            $(longest).css("background-color",endColor);
+          }
+          var split1 = historyArray[historyArray.length-1].split("x");
+          var split2 = split1[1].split("y");
+          if (direction === "U")
+          {
+            if (checkUp(parseInt(split2[0]), parseInt(split2[1])))
+              moveUp(parseInt(split2[0]), parseInt(split2[1]));
+          }
+          else if (direction === "D")
+          {
+            if (checkDown(parseInt(split2[0]), parseInt(split2[1])))
+              moveDown(parseInt(split2[0]), parseInt(split2[1]));
+          }
+          else if (direction === "L")
+          {
+            if (checkLeft(parseInt(split2[0]), parseInt(split2[1])))
+              moveLeft(parseInt(split2[0]), parseInt(split2[1]));
+          }
+          else if (direction === "R")
+          {
+            if (checkRight(parseInt(split2[0]), parseInt(split2[1])))
+              moveRight(parseInt(split2[0]), parseInt(split2[1]));
+          }
+          if (historyArray.length >= longestCount)
+          {
+            longestCount = historyArray.length;
+            $(longest).css("background-color",mazeColor);
+            longest = historyArray[historyArray.length-1];
+            $(longest).css("background-color",endColor);
+          }
+        }
       }
     }
     window.clearInterval(draw);
