@@ -177,11 +177,11 @@ select
   display: inline-block;
   margin: 1%;
 }
-#theme
+#dropDowns
 {
   padding-bottom: 10%;
 }
-#theme select
+#dropDowns select
 {
   display: inline-block;
   margin: 1%;
@@ -234,30 +234,40 @@ select
   color: #66ffff;
   border: 3px solid #66ffff;
 }
+#endless
+{
+  color: #cc00cc;
+  border: 3px solid #cc00cc;
+}
+#endless:hover
+{
+  color: #ff66ff;
+  border: 3px solid #ff66ff;
+}
 #easy
 {
   color: #006600;
   border: 3px solid #006600;
-}
-#medium
-{
-  color: #ffff00;
-  border: 3px solid #ffff00;
-}
-#hard
-{
-  color: #660000;
-  border: 3px solid #660000;
 }
 #easy:hover
 {
   color: #00ff00 !important;
   border: 3px solid #00ff00 !important;
 }
+#medium
+{
+  color: #ffff00;
+  border: 3px solid #ffff00;
+}
 #medium:hover
 {
   color: #ffff00 !important;
   border: 3px solid #ffff00 !important;
+}
+#hard
+{
+  color: #660000;
+  border: 3px solid #660000;
 }
 #hard:hover
 {
