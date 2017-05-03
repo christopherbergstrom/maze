@@ -651,6 +651,8 @@ function createWalls()
         window.clearInterval(draw);
         // clear array
         array=[];
+        // historyArray=[];
+        longestCount = 0;
         // reset background color on everything
         $("#container > div > div").css("background-color", backColor);
         createArray();
