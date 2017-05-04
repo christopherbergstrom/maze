@@ -242,10 +242,11 @@ function createDivs()
     movesVal = $("#moves");
     console.log(movesVal.outerHeight());
     var width = window.innerWidth*difficulty;
+    console.log("width: "+width);
     height = Math.floor(((window.innerHeight - $("#timeDiv").outerHeight()) / width));
   // height = Math.floor(((window.innerHeight - $("#arrowDiv").outerHeight()) / width));
   }
-  for (var i = 0; i < maxWidth; i++)
+  for (var i = 0; i < (maxWidth-1); i++)
   {
     if (difficulty === .04)
     {
@@ -275,8 +276,8 @@ function createDivs()
       }
     }
     $("#container").append(item);
-    $("body").append($("#container"));
   }
+  // $("body").append($("#container"));
   $("body").css("background-color",backColor);
   $("#container").css("background-color",backColor);
   $(".timeMoves").css("color",timeMovesColor);
@@ -572,76 +573,104 @@ function createWalls()
           $(longest).css("background-color",endColor);
         }
         // this for loop defines how many bocks maze will build at once if space is available
-        for (var i=0; i<directionAmount; i++)
+        if (directionAmount > 0)
         {
-          if (historyArray.length)
+          for (var i=0; i<directionAmount; i++)
           {
-            if (historyArray.length >= longestCount)
+            if (historyArray.length)
             {
-              longestCount = historyArray.length;
-              $(longest).css("background-color",mazeColor);
-              longest = historyArray[historyArray.length-1];
-              $(longest).css("background-color",endColor);
-              if (historyArray.length-2)
+              if (historyArray.length >= longestCount)
               {
-                if (currentPosition)
+                longestCount = historyArray.length;
+                $(longest).css("background-color",mazeColor);
+                longest = historyArray[historyArray.length-1];
+                $(longest).css("background-color",endColor);
+                if (historyArray.length-2)
                 {
-                  $(currentPosition).css("background-color",mazeColor);
+                  if (currentPosition)
+                  {
+                    $(currentPosition).css("background-color",mazeColor);
+                  }
+                  currentPosition = historyArray[historyArray.length-2];
+                  $(currentPosition).css("background-color",playerColor);
                 }
-                currentPosition = historyArray[historyArray.length-2];
+              }
+              else
+              {
+                $(currentPosition).css("background-color",mazeColor);
+                currentPosition = historyArray[historyArray.length-1];
+                $(currentPosition).css("background-color",playerColor);
+              }
+              var split1 = historyArray[historyArray.length-1].split("x");
+              var split2 = split1[1].split("y");
+              if (direction === "U")
+              {
+                if (checkUp(parseInt(split2[0]), parseInt(split2[1])))
+                  moveUp(parseInt(split2[0]), parseInt(split2[1]));
+              }
+              else if (direction === "D")
+              {
+                if (checkDown(parseInt(split2[0]), parseInt(split2[1])))
+                  moveDown(parseInt(split2[0]), parseInt(split2[1]));
+              }
+              else if (direction === "L")
+              {
+                if (checkLeft(parseInt(split2[0]), parseInt(split2[1])))
+                  moveLeft(parseInt(split2[0]), parseInt(split2[1]));
+              }
+              else if (direction === "R")
+              {
+                if (checkRight(parseInt(split2[0]), parseInt(split2[1])))
+                  moveRight(parseInt(split2[0]), parseInt(split2[1]));
+              }
+              if (historyArray.length >= longestCount)
+              {
+                longestCount = historyArray.length;
+                $(longest).css("background-color",mazeColor);
+                longest = historyArray[historyArray.length-1];
+                $(longest).css("background-color",endColor);
+                if (historyArray.length-2)
+                {
+                  if (currentPosition)
+                  {
+                    $(currentPosition).css("background-color",mazeColor);
+                  }
+                  currentPosition = historyArray[historyArray.length-2];
+                  $(currentPosition).css("background-color",playerColor);
+                }
+              }
+              else
+              {
+                $(currentPosition).css("background-color",mazeColor);
+                currentPosition = historyArray[historyArray.length-1];
                 $(currentPosition).css("background-color",playerColor);
               }
             }
-            else
+          }
+        }
+        else
+        {
+          if (historyArray.length >= longestCount)
+          {
+            longestCount = historyArray.length;
+            $(longest).css("background-color",mazeColor);
+            longest = historyArray[historyArray.length-1];
+            $(longest).css("background-color",endColor);
+            if (historyArray.length-2)
             {
-              $(currentPosition).css("background-color",mazeColor);
-              currentPosition = historyArray[historyArray.length-1];
-              $(currentPosition).css("background-color",playerColor);
-            }
-            var split1 = historyArray[historyArray.length-1].split("x");
-            var split2 = split1[1].split("y");
-            if (direction === "U")
-            {
-              if (checkUp(parseInt(split2[0]), parseInt(split2[1])))
-                moveUp(parseInt(split2[0]), parseInt(split2[1]));
-            }
-            else if (direction === "D")
-            {
-              if (checkDown(parseInt(split2[0]), parseInt(split2[1])))
-                moveDown(parseInt(split2[0]), parseInt(split2[1]));
-            }
-            else if (direction === "L")
-            {
-              if (checkLeft(parseInt(split2[0]), parseInt(split2[1])))
-                moveLeft(parseInt(split2[0]), parseInt(split2[1]));
-            }
-            else if (direction === "R")
-            {
-              if (checkRight(parseInt(split2[0]), parseInt(split2[1])))
-                moveRight(parseInt(split2[0]), parseInt(split2[1]));
-            }
-            if (historyArray.length >= longestCount)
-            {
-              longestCount = historyArray.length;
-              $(longest).css("background-color",mazeColor);
-              longest = historyArray[historyArray.length-1];
-              $(longest).css("background-color",endColor);
-              if (historyArray.length-2)
+              if (currentPosition)
               {
-                if (currentPosition)
-                {
-                  $(currentPosition).css("background-color",mazeColor);
-                }
-                currentPosition = historyArray[historyArray.length-2];
-                $(currentPosition).css("background-color",playerColor);
+                $(currentPosition).css("background-color",mazeColor);
               }
-            }
-            else
-            {
-              $(currentPosition).css("background-color",mazeColor);
-              currentPosition = historyArray[historyArray.length-1];
+              currentPosition = historyArray[historyArray.length-2];
               $(currentPosition).css("background-color",playerColor);
             }
+          }
+          else
+          {
+            $(currentPosition).css("background-color",mazeColor);
+            currentPosition = historyArray[historyArray.length-1];
+            $(currentPosition).css("background-color",playerColor);
           }
         }
       }
@@ -715,46 +744,74 @@ function createWalls()
         position = historyArray[historyArray.length-1];
         $(longest).css("background-color",endColor);
       }
-      for (var i=0; i<directionAmount; i++)
+      if (directionAmount > 0)
       {
-        if (historyArray.length)
+        for (var i=0; i<directionAmount; i++)
         {
-          if (historyArray.length >= longestCount)
+          if (historyArray.length)
           {
-            longestCount = historyArray.length;
-            $(longest).css("background-color",mazeColor);
-            longest = historyArray[historyArray.length-1];
-            $(longest).css("background-color",endColor);
+            if (historyArray.length >= longestCount)
+            {
+              longestCount = historyArray.length;
+              $(longest).css("background-color",mazeColor);
+              longest = historyArray[historyArray.length-1];
+              $(longest).css("background-color",endColor);
+            }
+            var split1 = historyArray[historyArray.length-1].split("x");
+            var split2 = split1[1].split("y");
+            if (direction === "U")
+            {
+              if (checkUp(parseInt(split2[0]), parseInt(split2[1])))
+                moveUp(parseInt(split2[0]), parseInt(split2[1]));
+            }
+            else if (direction === "D")
+            {
+              if (checkDown(parseInt(split2[0]), parseInt(split2[1])))
+                moveDown(parseInt(split2[0]), parseInt(split2[1]));
+            }
+            else if (direction === "L")
+            {
+              if (checkLeft(parseInt(split2[0]), parseInt(split2[1])))
+                moveLeft(parseInt(split2[0]), parseInt(split2[1]));
+            }
+            else if (direction === "R")
+            {
+              if (checkRight(parseInt(split2[0]), parseInt(split2[1])))
+                moveRight(parseInt(split2[0]), parseInt(split2[1]));
+            }
+            if (historyArray.length >= longestCount)
+            {
+              longestCount = historyArray.length;
+              $(longest).css("background-color",mazeColor);
+              longest = historyArray[historyArray.length-1];
+              $(longest).css("background-color",endColor);
+            }
           }
-          var split1 = historyArray[historyArray.length-1].split("x");
-          var split2 = split1[1].split("y");
-          if (direction === "U")
+        }
+      }
+      else
+      {
+        if (historyArray.length >= longestCount)
+        {
+          longestCount = historyArray.length;
+          $(longest).css("background-color",mazeColor);
+          longest = historyArray[historyArray.length-1];
+          $(longest).css("background-color",endColor);
+          if (historyArray.length-2)
           {
-            if (checkUp(parseInt(split2[0]), parseInt(split2[1])))
-              moveUp(parseInt(split2[0]), parseInt(split2[1]));
+            if (currentPosition)
+            {
+              $(currentPosition).css("background-color",mazeColor);
+            }
+            currentPosition = historyArray[historyArray.length-2];
+            $(currentPosition).css("background-color",playerColor);
           }
-          else if (direction === "D")
-          {
-            if (checkDown(parseInt(split2[0]), parseInt(split2[1])))
-              moveDown(parseInt(split2[0]), parseInt(split2[1]));
-          }
-          else if (direction === "L")
-          {
-            if (checkLeft(parseInt(split2[0]), parseInt(split2[1])))
-              moveLeft(parseInt(split2[0]), parseInt(split2[1]));
-          }
-          else if (direction === "R")
-          {
-            if (checkRight(parseInt(split2[0]), parseInt(split2[1])))
-              moveRight(parseInt(split2[0]), parseInt(split2[1]));
-          }
-          if (historyArray.length >= longestCount)
-          {
-            longestCount = historyArray.length;
-            $(longest).css("background-color",mazeColor);
-            longest = historyArray[historyArray.length-1];
-            $(longest).css("background-color",endColor);
-          }
+        }
+        else
+        {
+          $(currentPosition).css("background-color",mazeColor);
+          currentPosition = historyArray[historyArray.length-1];
+          $(currentPosition).css("background-color",playerColor);
         }
       }
     }
