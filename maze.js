@@ -10,7 +10,7 @@ var longest;
 var longestCount = 0;
 var time = 0;
 var difficulty = 0.02;
-var maxWidth = 50;
+var maxWidth = 48;
 var speed = 50;
 var watch = true;
 var position;
@@ -68,7 +68,7 @@ function createMenu()
     $("#hard").css("color","#660000");
     $("#hard").css("border","3px solid #660000");
     difficulty=0.04;
-    maxWidth=25;
+    maxWidth=23;
     // speed=50;
   });
   $("#medium").click(function()
@@ -80,7 +80,7 @@ function createMenu()
     $("#hard").css("color","#660000");
     $("#hard").css("border","3px solid #660000");
     difficulty=0.02;
-    maxWidth=50;
+    maxWidth=48;
     // speed=50;
   });
   $("#hard").click(function()
@@ -92,7 +92,7 @@ function createMenu()
     $("#medium").css("color","#666600");
     $("#medium").css("border","3px solid #666600");
     difficulty=0.01;
-    maxWidth=100;
+    maxWidth=98;
     // speed=50;
   });
   $("#dropDowns").change(function()
@@ -246,7 +246,7 @@ function createDivs()
     height = Math.floor(((window.innerHeight - $("#timeDiv").outerHeight()) / width));
   // height = Math.floor(((window.innerHeight - $("#arrowDiv").outerHeight()) / width));
   }
-  for (var i = 0; i < (maxWidth-1); i++)
+  for (var i = 0; i < (maxWidth); i++)
   {
     if (difficulty === .04)
     {
@@ -505,7 +505,7 @@ function startEnd()
     start = one+""+two;
     array[one.split("x")[1]][two.split("y")[1]] = "x";
   }
-  // left
+  // right
   else if (side === 1)
   {
     var one = "x"+(maxWidth-2);
